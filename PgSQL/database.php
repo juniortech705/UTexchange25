@@ -1,2 +1,76 @@
 <?php
-//connexion et interaction avec la BD 
+//connexion et interaction avec la BD
+
+class Database
+{
+    private static $cnx;
+
+    private static function init()
+    {
+        try {
+        $host = $_ENV['DB_HOST'];
+        $dbname = $_ENV['DB_NAME'];
+        $port = $_ENV['DB_PORT'];
+        $username = $_ENV['DB_USER'];
+        $password = $_ENV['DB_PASS'];
+
+        $dsn = "pgsql:host=$host;port=$port;dbname=$dbname";
+
+        self::$cnx = new PDO($dsn, $username, $password, [
+            PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+            PDO::ATTR_EMULATE_PREPARES   => false,
+        ]);
+        } catch (PDOException $e) {
+            error_log($e->getMessage());
+            header("Location: /500");
+            exit;
+        }
+    }
+
+    private static function getConx()
+    {
+        if (self::$cnx === null) {
+            self::init();
+        }
+        return self::$cnx;
+    }
+
+    public static function execute($rq, $tab)
+    {
+        try {
+            $stm = self::getConx()->prepare($rq);
+            $r = $stm->execute($tab);
+            return $r;
+        } catch (PDOException $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+    }
+
+    public static function query($rq, $class, $tab = array())
+    {
+        try {
+            $stm = self::getConx()->prepare($rq);
+            $stm->execute($tab);
+            $stm->setFetchMode(PDO::FETCH_CLASS, $class);
+            return $stm->fetchAll();
+        } catch (PDOException $e) {
+            error_log($e->getMessage());
+            return [];
+        }
+    }
+
+    public static function find($rq, $class, $tab = array())
+    {
+        try {
+            $stm = self::getConx()->prepare($rq);
+            $stm->execute($tab);
+            $stm->setFetchMode(PDO::FETCH_CLASS, $class);
+            return $stm->fetch();
+        } catch (PDOException $e) {
+            error_log($e->getMessage());
+            return null;
+        }
+    }
+}

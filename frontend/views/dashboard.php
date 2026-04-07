@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Oups ! - UTxCHANGE</title>
-    <link rel="stylesheet" href="front-end/css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body style="background-color: #f8f9fa; display: flex; flex-direction: column; min-height: 100vh;">
 
     <?php 
-        include 'front-end/views/partials/header.php'; 
+        include 'frontend/views/partials/header.php';
     ?>
 
     <main style="flex: 1; display: flex; align-items: center; justify-content: center; text-align: center; padding: 50px;">
@@ -31,7 +31,7 @@
         </div>
     </main>
 
-    <?php include 'front-end/views/partials/footer.php'; ?>
+    <?php include 'frontend/views/partials/footer.php'; ?>
 
 </body>
 </html>

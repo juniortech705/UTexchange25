@@ -3,7 +3,7 @@ console.log("Script UTEXCHANGE chargé avec succès !");
 const titre = document.querySelector('h1');
 if (titre) {
     titre.addEventListener('click', function() {
-        window.location.href = "index.php";
+        window.location.href = "home.php";
     });
 }
 

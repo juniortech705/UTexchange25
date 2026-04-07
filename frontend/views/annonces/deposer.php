@@ -7,13 +7,13 @@ ini_set('display_errors', 1);
 <head>
     <meta charset="UTF-8">
     <title>Déposer une annonce - UTexCHANGE</title>
-    <link rel="stylesheet" href="front-end/css/style.css">
+    <link rel="stylesheet" href="../../css/style.css">
 </head>
 <body>
 
     <?php 
-        include 'front-end/views/partials/header.php'; 
-        include 'front-end/views/partials/nav.php'; 
+        include 'frontend/views/partials/header.php';
+        include 'frontend/views/partials/nav.php';
 
     ?>
 
@@ -49,7 +49,7 @@ ini_set('display_errors', 1);
         </form>
     </main>
 
-    <?php include 'front-end/views/partials/footer.php'; ?>
+    <?php include 'frontend/views/partials/footer.php'; ?>
 
 </body>
 </html>

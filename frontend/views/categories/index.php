@@ -1,6 +1,6 @@
 <?php
 if (!isset($_GET['cat'])) {
-    header("Location: index.php");
+    header("Location: home.php");
     exit();
 }
 
@@ -17,8 +17,8 @@ $cat_active = $_GET['cat'];
 <body>
 
     <?php 
-        include 'front-end/views/partials/header.php'; 
-        include 'front-end/views/partials/nav.php'; 
+        include 'frontend/views/partials/header.php';
+        include 'frontend/views/partials/nav.php';
     ?>
 
     <main style="padding: 20px 50px;">
@@ -38,7 +38,7 @@ $cat_active = $_GET['cat'];
 
                 if ($nombre_annonces > 0) {
                     for ($i = 0; $i < $nombre_annonces; $i++) {
-                        include 'front-end/views/annonces/index.php';
+                        include 'frontend/views/annonces/index.php';
                     }
                 } else {
                     echo "<p>Aucune annonce dans cette catégorie pour le moment.</p>";
@@ -47,7 +47,7 @@ $cat_active = $_GET['cat'];
         </div>
     </main>
 
-    <?php include 'front-end/views/partials/footer.php'; ?>
+    <?php include 'frontend/views/partials/footer.php'; ?>
 
 </body>
 </html>

@@ -1,49 +1,20 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UTexCHANGE- Accueil</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="front-end/css/style.css">
-</head>
-<body>
+<?php
+//point d'entrée de l'application
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
 
-    <?php 
-        include 'front-end/views/partials/header.php'; 
-        include 'front-end/views/partials/nav.php'; 
+require_once __DIR__ . '/backend/Core/Session.php';
+require_once __DIR__ . '/backend/Core/Middleware.php';
+require_once __DIR__ . '/backend/Core/Router.php';
 
+// Démarrer la session
+Session::start();
 
-    ?>
+// Init router
+$router = new Router();
 
-   <main>
-    <?php 
-        $cat = isset($_GET['cat']) ? $_GET['cat'] : 'Toutes les annonces';
-        
-        $titre_section = ucfirst($cat);
-    ?>
+// Charger les routes
+require __DIR__ . '/backend/Core/Routes.php';
 
-    <h2 style="margin-bottom: 20px;">Section : <?php echo $titre_section; ?></h2>
-
-    <div class="annonces-container">
-        <?php 
-            $nombre = 6; 
-            if($cat == 'livres') $nombre = 2;
-            if($cat == 'electronique') $nombre = 3;
-            if($cat == 'dons') $nombre = 1;
-
-            for ($i = 0; $i < $nombre; $i++) {
-                include 'front-end/views/annonces/index.php';
-            }
-        ?>
-    </div>
-</main>
-
-    <?php include 'front-end/views/partials/footer.php'; ?>
-
-    <script src="front-end/js/script.js"></script>
-</body>
-</html>
-
-
+// Dispatch
+$router->dispatch();
