@@ -19,6 +19,15 @@ $router->get('/logout', 'AuthController@logout', ['auth'], 'auth.logout');
 // Dashboard
 $router->get('/dashboard', 'HomeController@dashboard', ['auth'], 'dashboard');
 
-//Routes protégées
-
-// Routes API — réponses JSON  (PHP, AJAX / jQuery)
+// Gestion des users
+$router->get('/users', 'UserController@index', ['auth', 'admin']);
+$router->get('/users/add', 'UserController@addForm', ['auth', 'admin']);
+$router->post('/users/add', 'UserController@add', ['auth', 'csrf', 'admin']);
+$router->get('/users/edit/{id}', 'UserController@editForm', ['auth']);
+$router->post('/users/edit', 'UserController@edit', ['auth', 'csrf']);
+$router->get('/users/delete/{id}', 'UserController@delete', ['auth', 'admin']);
+$router->get('/users/activate/{id}', 'UserController@activate', ['auth', 'admin']);
+$router->get('/users/deactivate/{id}', 'UserController@deactivate', ['auth', 'admin']);
+$router->get('/users/profil/{id}', 'UserController@show', ['auth']);
+$router->get('/users/pass', 'UserController@passForm', ['auth']);
+$router->post('/users/pass', 'UserController@pass', ['auth']);

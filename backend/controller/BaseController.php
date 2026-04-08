@@ -5,10 +5,7 @@
  */
 abstract class BaseController
 {
-    /**
-     * Rend une vue PHP en lui injectant des variables.
-     * Utilise output buffering pour capturer le contenu.
-     */
+    //Rend une vue PHP en lui injectant des variables.
     protected function render(string $view, array $data = []): void
     {
         // Rend les clés du tableau accessibles comme variables dans la vue

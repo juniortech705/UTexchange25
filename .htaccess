@@ -1,2 +1,8 @@
-ErrorDocument 404 /error.php
-ErrorDocument 500 /error.php
+RewriteEngine On
+
+# Ne pas rediriger les fichiers existants
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^ - [L]
+
+# Sinon → index.php
+RewriteRule ^ index.php [QSA,L]

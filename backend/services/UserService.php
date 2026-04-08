@@ -35,18 +35,17 @@ class UserService{
         //hash
         $hash = password_hash($data['password'], PASSWORD_BCRYPT);
         $rq="INSERT INTO utilisateurs 
-            (nom, prenom, email, password, role_id, telephone, adresse, est_actif, date_ins, email_verified)
+            (nom, prenom, email, mot_de_passe, role_id, telephone, ville, est_actif, date_inscription, email_verifie)
             VALUES 
-            (:nom, :prenom, :email, :password, :role_id, :telephone, :adresse, 1, NOW(), 0)";
+            (:nom, :prenom, :email, :password, :role_id, :telephone, :adresse, true, NOW(), false)";
         $tab = [
             "nom" => $data['nom'] ?? null,
             "prenom" => $data['prenom'] ?? null,
             "email" => $data['email'],
             "password" => $hash,
-            "role_id" => $data['role_id'],
+            "role_id" => $data['role_id'] ?? 2,
             "telephone" => $data['telephone'] ?? null,
-            "adresse" => $data['adresse'] ?? null,
-            "est_actif" => $data['est_actif'],
+            "adresse" => $data['adresse'] ?? null
         ];
         $result=Database::execute($rq, $tab);
 
@@ -59,7 +58,7 @@ class UserService{
                 prenom = :prenom,
                 email = :email,
                 telephone = :telephone,
-                adresse = :adresse
+                ville = :adresse
                WHERE id = :id";
         $tab = [
             "id" => $id,
@@ -128,6 +127,13 @@ class UserService{
             'id' => $id,
             'password' => $hash
         ]);
+    }
+    //getByID
+    public static function getById($id){
+        $rq = "SELECT * FROM utilisateurs WHERE id = :id";
+        $tab["id"] = $id;
+        $user = Database::find($rq, "User", $tab);
+        return $user;
     }
 
 }

@@ -118,7 +118,7 @@ class Session
             );
         }
         session_destroy();
-        exit;
+        //exit;
     }
 
     public static function set(string $key, mixed $value): void

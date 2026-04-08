@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Oups ! - UTxCHANGE</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="/frontend/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body style="background-color: #f8f9fa; display: flex; flex-direction: column; min-height: 100vh;">
@@ -25,7 +25,7 @@
                 Ne vous inquiétez pas, même les meilleurs ingénieurs font des erreurs !
             </p>
 
-            <a href="index.php" style="background: #0056b3; color: white; padding: 12px 25px; border-radius: 8px; text-decoration: none; font-weight: bold; display: inline-block; transition: background 0.3s;">
+            <a href="/" style="background: #0056b3; color: white; padding: 12px 25px; border-radius: 8px; text-decoration: none; font-weight: bold; display: inline-block; transition: background 0.3s;">
                 <i class="fa-solid fa-house" style="margin-right: 8px;"></i> Retourner à l'accueil
             </a>
         </div>

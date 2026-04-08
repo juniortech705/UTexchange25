@@ -5,13 +5,31 @@ class User{
     private $nom;
     private $prenom;
     private $email;
-    private $password;
+    private $mot_de_passe;
     private $role_id;
     private $telephone;
-    private $adresse;
+    private $ville;
     private $est_actif;
-    private $date_ins;
-    private $email_verified;
+    private $date_inscription;
+    private $email_verifie;
+    private $average_rating;
+    private $ratings_count;
+    private $modif_inscription;
+
+    public function getAverageRating()
+    {
+        return $this->average_rating;
+    }
+
+    public function getRatingsCount()
+    {
+        return $this->ratings_count;
+    }
+
+    public function getModifInscription()
+    {
+        return $this->modif_inscription;
+    }
 
     public function getId()
     {
@@ -40,7 +58,7 @@ class User{
 
     public function getAdresse()
     {
-        return $this->adresse;
+        return $this->ville;
     }
 
     public function getEstActif()
@@ -50,17 +68,17 @@ class User{
 
     public function getDateIns()
     {
-        return $this->date_ins;
+        return $this->date_inscription;
     }
 
     public function getEmailVerified()
     {
-        return $this->email_verified;
+        return $this->email_verifie;
     }
 
     public function getPassword()
     {
-        return $this->password;
+        return $this->mot_de_passe;
     }
 
     public function getRoleId()

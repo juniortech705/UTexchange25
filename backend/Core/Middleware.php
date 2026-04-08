@@ -21,7 +21,7 @@ class Middleware
     public static function guest(): void
     {
         if (Session::isLoggedIn()) {
-            self::redirect('/');
+            self::redirect('/dashboard');
         }
     }
     //Middleware : validation du token CSRF sur les requêtes POST.
