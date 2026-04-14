@@ -1,0 +1,204 @@
+{
+  "intents": [
+    {
+      "tag": "salutation",
+      "patterns": [
+        "Bonjour",
+        "Salut",
+        "Hey",
+        "Coucou",
+        "Bonsoir",
+        "Hello",
+        "Hi",
+        "Yo",
+        "Cc"
+      ],
+      "responses": [
+        "Bonjour ! Comment puis-je t'aider ?",
+        "Salut ! Je suis là pour t'aider.",
+        "Hey ! Que puis-je faire pour toi ?",
+        "Bonjour ! Pose-moi tes questions."
+      ]
+    },
+    {
+      "tag": "au_revoir",
+      "patterns": [
+        "Au revoir",
+        "Bye",
+        "À plus",
+        "À bientôt",
+        "Salut",
+        "Ciao",
+        "Tchao",
+        "À plus tard",
+        "See you"
+      ],
+      "responses": [
+        "Au revoir ! À bientôt !",
+        "Bye ! N'hésite pas à revenir !",
+        "À plus ! Bonne journée !",
+        "Au revoir ! Prends soin de toi !"
+      ]
+    },
+    {
+      "tag": "remerciement",
+      "patterns": [
+        "Merci",
+        "Merci beaucoup",
+        "Merci bien",
+        "Thanks",
+        "Thank you",
+        "Super merci",
+        "C'est gentil",
+        "Merci pour ton aide"
+      ],
+      "responses": [
+        "De rien ! Je suis là pour ça.",
+        "Avec plaisir !",
+        "Pas de problème !",
+        "Heureux de t'aider !"
+      ]
+    },
+    {
+      "tag": "nom_bot",
+      "patterns": [
+        "Comment tu t'appelles ?",
+        "Quel est ton nom ?",
+        "Qui es-tu ?",
+        "Tu es qui ?",
+        "C'est quoi ton nom ?",
+        "Ton nom ?",
+        "Comment on t'appelle ?"
+      ],
+      "responses": [
+        "Je suis le chatbot d'UTexchange !",
+        "On m'appelle le bot UTexchange.",
+        "Je suis ton assistant virtuel UTexchange.",
+        "Mon nom est UTexchange Bot, ravi de te parler !"
+      ]
+    },
+    {
+      "tag": "aide",
+      "patterns": [
+        "Tu peux m'aider ?",
+        "J'ai besoin d'aide",
+        "Aide-moi",
+        "Help",
+        "Je ne comprends pas",
+        "Je suis perdu",
+        "Comment ça marche ?",
+        "Explique-moi"
+      ],
+      "responses": [
+        "Bien sûr ! Pose-moi ta question et je ferai de mon mieux pour t'aider.",
+        "Je suis là pour ça ! Dis-moi ce dont tu as besoin.",
+        "Aucun problème ! Que veux-tu savoir ?",
+        "Je t'écoute, comment puis-je t'aider ?"
+      ]
+    },
+    {
+      "tag": "blague",
+      "patterns": [
+        "Raconte une blague",
+        "Fais-moi rire",
+        "Tu connais des blagues ?",
+        "Dis-moi une blague",
+        "Blague",
+        "Joke",
+        "Tu es drôle ?"
+      ],
+      "responses": [
+        "Pourquoi les plongeurs plongent toujours en arrière ? Parce que sinon ils tombent dans le bateau ! 😄",
+        "sans moi paris est Pris ! qui suis-je ?  Je suis A😂",
+        "Qu'est-ce qu'un crocodile qui surveille la pharmacie ? Un Lacoste garde ! 🐊",
+        "Qu'est-ce qu'un canif ? Un petit fien ! 😂",
+        "Comment appelle-t-on un chat tombé dans un pot de peinture le jour de Noël ? Un chat-peint de Noël ! 🎄"
+      ]
+    },
+    {
+      "tag": "capacites",
+      "patterns": [
+        "Que peux-tu faire ?",
+        "Quelles sont tes capacités ?",
+        "Tu fais quoi ?",
+        "À quoi tu sers ?",
+        "Qu'est-ce que tu sais faire ?",
+        "Tu peux faire quoi ?",
+        "Tes fonctions ?"
+      ],
+      "responses": [
+        "Je peux répondre à tes questions sur UTexchange, t'aider avec des informations sur la navigation du site et discuter avec toi !",
+        "Je suis là pour t'assister sur UTexchange. Pose-moi des questions !",
+        "Je peux t'aider avec des infos, répondre à tes questions et plus encore !",
+        "Je suis un assistant virtuel. Demande-moi ce que tu veux savoir !"
+      ]
+    },
+    {
+      "tag": "utexchange_info",
+      "patterns": [
+        "C'est quoi UTexchange ?",
+        "Parle-moi d'UTexchange",
+        "Qu'est-ce qu'UTexchange ?",
+        "UTexchange c'est quoi ?",
+        "Explique UTexchange",
+        "Info sur UTexchange"
+      ],
+      "responses": [
+        "UTexchange est le sites des petites annonces de l'UTBM : il s'y passe des trocs, des ventes, des annonces et opportunités entre étudiants et aussi avec l'administration de l'UTBM. Nous somme en collaboration avec l'AE et Le service de la vie étudiante de l'UTBM. Que veux-tu savoir exactement ?",
+        "UTexchange est une plateforme d'échange un peu comme leboncoin, mais uniquement circonscrit à l'UTBM. Je peux t'en dire plus si tu as des questions précises !",
+        "C'est la plateforme sur laquelle tu te trouves ! Pose-moi des questions spécifiques.",
+        "UTexchange est notre service. Comment puis-je t'aider à ce sujet ?"
+      ]
+    },
+    {
+      "tag": "incompris",
+      "patterns": [
+        "Je ne comprends pas",
+        "C'est confus",
+        "Explique mieux",
+        "Je ne saisis pas",
+        "C'est pas clair",
+        "Hein ?",
+        "Quoi ?",
+        "Comment ?"
+      ],
+      "responses": [
+        "Désolé si je n'étais pas clair. Peux-tu reformuler ta question ?",
+        "Je vais essayer d'être plus précis. Que veux-tu savoir exactement ?",
+        "Excuse-moi ! Pose ta question différemment et je vais essayer de mieux répondre.",
+        "Pardon pour la confusion. Dis-moi autrement ce que tu cherches !"
+      ]
+    },
+    {
+      "tag": "humeur",
+      "patterns": [
+        "Comment vas-tu ?",
+        "Ça va ?",
+        "Tu vas bien ?",
+        "Comment tu te sens ?",
+        "Quoi de neuf ?",
+        "Comment ça va ?"
+      ],
+      "responses": [
+        "Je vais très bien, merci ! Et toi ?",
+        "Super ! Je suis prêt à t'aider. Comment vas-tu ?",
+        "Ça va bien ! Que puis-je faire pour toi aujourd'hui ?",
+        "Je me sens en pleine forme ! Et toi, comment ça va ?"
+      ]
+    },
+    {
+      "tag": "default",
+      "patterns": [
+        "autre chose",
+        "je ne sais pas",
+        "peu importe"
+      ],
+      "responses": [
+        "Je ne suis pas sûr de comprendre. Peux-tu reformuler ?",
+        "Hmm, je n'ai pas compris. Pose ta question autrement !",
+        "Désolé, je n'ai pas la réponse à ça. Essaye de reformuler !",
+        "Je ne comprends pas bien. Peux-tu être plus précis ?"
+      ]
+    }
+  ]
+}
