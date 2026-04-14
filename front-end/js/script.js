@@ -1,35 +1,63 @@
-console.log("Script UTEXCHANGE chargé avec succès !");
+document.addEventListener('DOMContentLoaded', () => {
+    console.log("Script UTEXCHANGE chargé avec succès !");
 
-const titre = document.querySelector('h1');
-if (titre) {
-    titre.addEventListener('click', function() {
-        window.location.href = "index.php";
+    // --- NAVIGATION TITRE ---
+    const titre = document.querySelector('.logo-text');
+    if (titre) {
+        titre.style.cursor = "pointer";
+        titre.addEventListener('click', () => {
+            window.location.href = "index.php";
+        });
+    }
+
+    // --- GESTION DE LA MODALE ---
+    const modal = document.getElementById("loginModal");
+    const openBtn = document.getElementById("openLogin");
+    const closeBtn = document.querySelector(".close-modal");
+    const toSignup = document.getElementById("showSignup");
+    const toLogin = document.getElementById("showLogin");
+    const loginForm = document.getElementById("loginForm");
+    const signupForm = document.getElementById("signupForm");
+
+    if (openBtn) {
+        openBtn.addEventListener('click', () => {
+            console.log("Ouverture de la modale...");
+            modal.style.display = "block";
+        });
+    }
+
+    if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+            modal.style.display = "none";
+        });
+    }
+
+    window.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.style.display = "none";
+        }
     });
-}
 
-const liensCategories = document.querySelectorAll('.categories-nav a');
+    if (toSignup) {
+        toSignup.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginForm.style.display = "none";
+            signupForm.style.display = "block";
+        });
+    }
 
-liensCategories.forEach(lien => {
-    lien.addEventListener('click', function(e) {
-        const nomCategorie = this.textContent;
-        console.log("Navigation vers la catégorie : " + nomCategorie);
-        
-        liensCategories.forEach(l => l.classList.remove('active'));
-        this.classList.add('active');
-        
+    if (toLogin) {
+        toLogin.addEventListener('click', (e) => {
+            e.preventDefault();
+            signupForm.style.display = "none";
+            loginForm.style.display = "block";
+        });
+    }
+
+    // --- EFFET DE FOND ---
+    document.addEventListener('mousemove', (e) => {
+        const moveX = (e.clientX * -0.005);
+        const moveY = (e.clientY * -0.005);
+        document.body.style.backgroundPosition = `calc(50% + ${moveX}px) calc(50% + ${moveY}px)`;
     });
-});
-
-const btn = document.querySelector('.btn-deposer');
-if (btn) {
-    btn.addEventListener('click', function(e) {
-        console.log("L'utilisateur veut déposer une annonce.");
-    });
-}
-
-// --- Effet de mouvement léger sur le fond UT ---
-document.addEventListener('mousemove', (e) => {
-    const moveX = (e.clientX * -0.01);
-    const moveY = (e.clientY * -0.01);
-    document.body.style.backgroundPosition = `calc(50% + ${moveX}px) calc(50% + ${moveY}px)`;
 });
