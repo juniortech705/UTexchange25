@@ -73,4 +73,27 @@ class Database
             return null;
         }
     }
+
+    public static function count($rq, $tab){
+        try {
+            $stm = self::getConx()->prepare($rq);
+            $stm->execute($tab);
+            return (int) $stm->fetchColumn();
+        } catch (PDOException $e) {
+            error_log($e->getMessage());
+            return 0;
+        }
+    }
+
+    public static function insertAndGetId($rq, $tab = [])
+    {
+        try {
+            $stm = self::getConx()->prepare($rq);
+            $stm->execute($tab);
+            return $stm->fetchColumn(); // récupère le RETURNING id
+        } catch (PDOException $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+    }
 }
