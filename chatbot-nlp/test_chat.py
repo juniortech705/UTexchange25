@@ -1,14 +1,8 @@
-from flask import Flask, request, jsonify
-from flask_cors import CORS
-import torch
-import json
 import random
-
+import json
+import torch
 from app.models.neural_net import NeuralNet
 from app.utils.nlp_utils import bag_of_words, tokenize
-
-app = Flask(__name__)
-CORS(app)
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
@@ -27,41 +21,37 @@ model = NeuralNet(input_size, hidden_size, output_size).to(device)
 model.load_state_dict(model_state)
 model.eval()
 
-# Charger intents
+# Charger les intents
 with open('data/intents/intents.json', 'r', encoding='utf-8') as f:
     intents = json.load(f)
 
+bot_name = "Bot"
 
-@app.route('/')
-def home():
-    return {"message": "Chatbot API is running!"}
+print("🤖 Chatbot prêt ! (tape 'quit' pour quitter)\n")
 
+while True:
+    sentence = input("Toi: ")
+    if sentence.lower() == "quit":
+        break
 
-@app.route('/chat', methods=['POST'])
-def chat():
-    user_message = request.json.get("message")
-
-    # NLP
-    sentence = tokenize(user_message)
-    X = bag_of_words(sentence, all_words)
+    # Préparer les données
+    sentence_tokens = tokenize(sentence)
+    X = bag_of_words(sentence_tokens, all_words)
     X = torch.from_numpy(X).float().unsqueeze(0).to(device)
 
+    # Prédiction
     output = model(X)
     _, predicted = torch.max(output, dim=1)
+
     tag = tags[predicted.item()]
 
+    # Probabilité
     probs = torch.softmax(output, dim=1)
     prob = probs[0][predicted.item()]
 
-    # Réponse
-    if prob.item() > 0.6:
+    if prob.item() > 0.75:
         for intent in intents['intents']:
             if tag == intent["tag"]:
-                response = random.choice(intent['responses'])
-                return jsonify({"response": response})
-
-    return jsonify({"response": "Je ne comprends pas 😅"})
-
-
-if __name__ == '__main__':
-    app.run(debug=True)
+                print(f"{bot_name}: {random.choice(intent['responses'])}")
+    else:
+        print(f"{bot_name}: Je ne comprends pas 😅")

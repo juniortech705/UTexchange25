@@ -33,3 +33,17 @@ document.addEventListener('mousemove', (e) => {
     const moveY = (e.clientY * -0.01);
     document.body.style.backgroundPosition = `calc(50% + ${moveX}px) calc(50% + ${moveY}px)`;
 });
+
+
+async function sendMessage(message) {
+  const res = await fetch("http://127.0.0.1:5000/chat", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ message: message })
+  });
+
+  const data = await res.json();
+  return data.response;
+}
