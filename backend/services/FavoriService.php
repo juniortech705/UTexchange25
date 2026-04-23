@@ -2,18 +2,16 @@
 
 class FavoriService{
     //add
-    public static function add($userId, $annonceId){
-        if (self::exists($userId, $annonceId)) {
-            return false;
-        }
-        $rq = "INSERT INTO favoris (utilisateur_id, annonce_id, created_at) VALUES (:user_id, :annonce_id, NOW())";
+    private static function add($userId, $annonceId){
+        $rq = "INSERT INTO favoris (utilisateur_id, annonce_id, created_at) 
+                    VALUES (:user_id, :annonce_id, NOW())";
         return Database::execute($rq, [
             'user_id' => $userId,
             'annonce_id' => $annonceId
         ]);
     }
     //delete
-    public static function remove($userId, $annonceId){
+    private static function remove($userId, $annonceId){
         $rq = "DELETE FROM favoris WHERE utilisateur_id = :user_id AND annonce_id = :annonce_id";
         return Database::execute($rq, [
             'user_id' => $userId,
@@ -27,7 +25,7 @@ class FavoriService{
             'user_id' => $userId,
             'annonce_id' => $annonceId
         ]);
-        return $result !== null;
+        return !empty($result);
     }
     //toggle (add/remove)
     public static function toggle($userId, $annonceId){
@@ -35,10 +33,9 @@ class FavoriService{
             self::remove($userId, $annonceId);
             return 'removed';
         }
-        else {
-            self::add($userId, $annonceId);
-            return 'added';
-        }
+
+        self::add($userId, $annonceId);
+        return 'added';
     }
     //getByUser
     public static function getByUser($userId){

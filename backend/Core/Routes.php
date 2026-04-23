@@ -10,14 +10,13 @@ $router->get('/403', 'ErrorController@forbidden', [], 'error.403');
 $router->get('/500', 'ErrorController@internalError', [], 'error.internalError');
 
 //Authentification
-$router->get('/login', 'AuthController@loginForm', ['guest'], 'auth.login');
+$router->get('/login', 'AuthController@form', ['guest']);
 $router->post('/login', 'AuthController@login', ['guest', 'csrf'], 'auth.login.post');
-$router->get('/register', 'AuthController@registerForm', ['guest'], 'auth.register');
 $router->post('/register', 'AuthController@register', ['guest', 'csrf'], 'auth.register.post');
 $router->get('/logout', 'AuthController@logout', ['auth'], 'auth.logout');
 
 // Dashboard
-$router->get('/dashboard', 'HomeController@dashboard', ['auth'], 'dashboard');
+$router->get('/dashboard', 'HomeController@dashboard', ['auth', 'admin'], 'dashboard');
 
 // Gestion des users
 $router->get('/users', 'UserController@index', ['auth', 'admin']);
@@ -28,28 +27,35 @@ $router->post('/users/edit', 'UserController@edit', ['auth', 'csrf']);
 $router->post('/users/delete/{id}', 'UserController@delete', ['auth', 'admin']);
 $router->post('/users/activate/{id}', 'UserController@activate', ['auth', 'admin']);
 $router->post('/users/deactivate/{id}', 'UserController@deactivate', ['auth', 'admin']);
-$router->get('/users/profil/{id}', 'UserController@show', ['auth']);
+$router->get('/users/profil/{id}', 'UserController@show', []);
 $router->get('/users/pass', 'UserController@passForm', ['auth']);
 $router->post('/users/pass', 'UserController@pass', ['auth']);
 
 //Gestion des categories
+$router->get('/categories', 'CategorieController@index', ['auth', 'admin']);
+$router->get('/categories/add', 'CategorieController@addForm', ['auth', 'admin']);
+$router->post('/categories/add', 'CategorieController@add', ['auth', 'csrf', 'admin']);
+$router->get('/categories/edit/{id}', 'CategorieController@editForm', ['auth','admin']);
+$router->post('/categories/edit/{id}', 'CategorieController@edit', ['auth', 'csrf', 'admin']);
+$router->post('/categories/delete/{id}', 'CategorieController@delete', ['auth', 'admin']);
+$router->post('/categories/activate/{id}', 'CategorieController@activate', ['auth', 'admin']);
+$router->post('/categories/deactivate/{id}', 'CategorieController@deactivate', ['auth', 'admin']);
 
-//Gestion des annonces
-$router->get('/annonces', 'AnnonceController@index');
-$router->get('/annonces/{id}', 'AnnonceController@show');
-$router->get('/uploads/annonces/{annonceId}/{fichier}', 'AnnonceController@servePhoto');
-$router->get('/annonces/create', 'AnnonceController@addForm', ['auth']);
-$router->post('/annonces/create', 'AnnonceController@add', ['auth', 'csrf']);
-$router->get('/annonces/edit/{id}', 'AnnonceController@editForm', ['auth']);
-$router->post('/annonces/edit/{id}', 'AnnonceController@edit', ['auth', 'csrf']);
-$router->post('/annonces/delete/{id}', 'AnnonceController@delete', ['auth', 'csrf']);
+//Gestion des annonce
 $router->get('/myAnnonces', 'AnnonceController@myAnnonces', ['auth']);
-$router->post('/annonces/type/{id}', 'AnnonceController@updateType', ['auth', 'csrf']);
-$router->post('/annonces/status/{id}', 'AnnonceController@updateStatus', ['auth', 'csrf']);
-//Photos (AJAX)
+$router->get('/annonce/create', 'AnnonceController@addForm', ['auth']);
+$router->post('/annonce/create', 'AnnonceController@add', ['auth', 'csrf']);
+$router->get('/annonce/{id}', 'AnnonceController@show', []);
+$router->get('/annonce/edit/{id}', 'AnnonceController@editForm', ['auth']);
+$router->post('/annonce/edit/{id}', 'AnnonceController@edit', ['auth', 'csrf']);
+$router->post('/annonce/delete/{id}', 'AnnonceController@delete', ['auth', 'csrf']);
+$router->post('/annonce/type/{id}', 'AnnonceController@updateType', ['auth', 'csrf']);
+$router->post('/annonce/status/{id}', 'AnnonceController@updateStatus', ['auth', 'csrf']);
+$router->get('/annonce/photo/{annonceId}/{fichier}', 'AnnonceController@servePhoto');
+//Photos (Ajax)
 $router->post('/photos/delete/{id}', 'AnnonceController@deletePhoto', ['auth', 'csrf']);
 $router->post('/photos/cover/{id}', 'AnnonceController@setCover', ['auth', 'csrf']);
-//Favoris (AJAX)
-$router->post('/annonces/{id}/favori', 'AnnonceController@toggleFavori', ['auth']);
-$router->get('/annonces/{id}/is-favori', 'AnnonceController@isFavori', ['auth']);
+//Favoris (Ajax)
+$router->post('/annonce/{id}/favori', 'AnnonceController@toggleFavori', ['auth', 'csrf']);
+$router->get('/annonce/{id}/is-favori', 'AnnonceController@isFavori', []);
 $router->get('/favoris', 'AnnonceController@favoris', ['auth']);

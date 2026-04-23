@@ -2,6 +2,8 @@
 require_once __DIR__ . '/BaseController.php';
 require_once __DIR__ . '/../services/UserService.php';
 require_once __DIR__ . '/../services/RoleService.php';
+require_once __DIR__ . '/../services/AnnonceService.php';
+require_once __DIR__ . '/../services/PhotoService.php';
 class UserController extends BaseController{
     //add
     public function addForm(){
@@ -15,8 +17,7 @@ class UserController extends BaseController{
             'email' => $this->input('email'),
             'password' => $this->input('password'),
             'role_id' => $this->input('role_id'),
-            'telephone' => $this->input('telephone'),
-            'adresse' => $this->input('adresse'),
+            'campuq' => $this->input('campus'),
         ];
 
         $result = UserService::add($data);
@@ -42,9 +43,7 @@ class UserController extends BaseController{
             'nom' => $this->input('nom'),
             'prenom' => $this->input('prenom'),
             'email' => $this->input('email'),
-            'role_id' => $this->input('role_id'),
-            'telephone' => $this->input('telephone'),
-            'adresse' => $this->input('adresse'),
+            'campus' => $this->input('campus'),
         ];
 
         $result = UserService::update($id, $data);
@@ -88,7 +87,15 @@ class UserController extends BaseController{
     //show (pour profil)
     public function show($id){
         $user=UserService::getById($id);
-        $this->render('users/show', ['user' => $user]);
+        $annonces=AnnonceService::getAllByUser($id);
+
+        $covers = [];
+        foreach ($annonces as $a) {
+            $covers[$a->getId()] = PhotoService::getCover($a->getId());
+        }
+        $stats = ['total' => count($annonces)];
+
+        $this->render('users/show', ['user' => $user, 'annonces' => $annonces, 'covers' => $covers, 'stats' => $stats]);
 
     }
     //update password
@@ -98,16 +105,16 @@ class UserController extends BaseController{
     public function pass(){
         $id = Session::userId(); // user connecté
 
-        $old = $this->input('old_password');
-        $new = $this->input('new_password');
+        $old = $this->input('old');
+        $new = $this->input('new');
 
         $result = UserService::updatePassword($id, $old, $new);
 
         if ($result === true) {
             Session::flash('success', 'Mot de passe modifié');
-            $this->redirect('/users/profil');
+            $this->redirect('/users/profil/'.$id);
         } else {
-            Session::flash('error', $result); // message retourné
+            Session::flash('error', $result);
             $this->redirect('/users/pass');
         }
     }

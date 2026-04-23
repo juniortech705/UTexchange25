@@ -4,10 +4,6 @@ require_once __DIR__ . '/../services/UserService.php';
 require_once __DIR__ . '/../services/RoleService.php';
 class AuthController extends BaseController{
     //Login
-    public function loginForm()
-    {
-        $this->render('auth/login');
-    }
     public function login(){
         $email = $this->input('email');
         $password = $this->input('password');
@@ -33,16 +29,12 @@ class AuthController extends BaseController{
         Session::flash('success', 'Connexion réussie.');
 
         //Redirection
-        $redirect= Session::get('_redirect_after_login', '/dashboard');
+        $redirect= Session::get('_redirect_after_login', '/');
         Session::set('_redirect_after_login', null);
         $this->redirect($redirect);
     }
 
     //Register
-    public function registerForm()
-    {
-        $this->render('auth/register');
-    }
     public function register(){
         $data = [
             'nom' => $this->input('nom'),
@@ -53,18 +45,18 @@ class AuthController extends BaseController{
         ];
         if (!$data['nom'] || !$data['prenom'] || !$data['email'] || !$data['password']) {
             Session::flash('error', 'Veuillez remplir tous les champs.');
-            $this->redirect('/register');
+            $this->redirect('/');
         }
 
         $result= UserService::register($data);
         if(!$result){
             Session::flash('error', 'Erreur.');
-            $this->redirect('/register');
+            $this->redirect('/');
         }
 
 
         Session::flash('success', 'Inscription réussie. Connectez-vous.');
-        $this->redirect('/login');
+        $this->redirect('/');
     }
 
     //logout
@@ -72,6 +64,10 @@ class AuthController extends BaseController{
         Session::logout();
         Session::flash('success', 'Déconnexion réussie.');
         $this->redirect('/');
+    }
+
+    public function form(){
+        $this->render('users/login');
     }
 
 }

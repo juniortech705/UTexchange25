@@ -1,4 +1,4 @@
-<footer>
+<footer style="margin-top:auto;">
     <div class="footer-container">
         <div class="footer-section">
             <h3>UTexCHANGE</h3>
@@ -9,16 +9,14 @@
                 <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
             </div>
         </div>
-
         <div class="footer-section">
             <h4>Navigation</h4>
             <ul>
-                <li><a href="index.php">Accueil</a></li>
-                <li><a href="deposer.php">Déposer une annonce</a></li>
-                <li><a href="categorie.php?cat=dons">Les Dons</a></li>
+                <li><a href="/">Accueil</a></li>
+                <li><a href="/annonces">Toutes les annonces</a></li>
+                <li><a href="/annonces?type=don">Les Dons</a></li>
             </ul>
         </div>
-
         <div class="footer-section">
             <h4>Aide & Contact</h4>
             <ul>
@@ -28,8 +26,7 @@
             </ul>
         </div>
     </div>
-
     <div class="footer-bottom">
-        <p>&copy; 2026 UTexchange - Réseau des Universités de Technologie (UTC, UTT, UTBM)</p>
+        <p>&copy; <?= date('Y') ?> UTexchange — Réseau des Universités de Technologie (UTC, UTT, UTBM)</p>
     </div>
 </footer>

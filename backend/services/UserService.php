@@ -35,17 +35,16 @@ class UserService{
         //hash
         $hash = password_hash($data['password'], PASSWORD_BCRYPT);
         $rq="INSERT INTO utilisateurs 
-            (nom, prenom, email, mot_de_passe, role_id, telephone, ville, est_actif, date_inscription, email_verifie)
+            (nom, prenom, email, mot_de_passe, role_id, campus, est_actif, date_inscription, email_verifie)
             VALUES 
-            (:nom, :prenom, :email, :password, :role_id, :telephone, :adresse, true, NOW(), false)";
+            (:nom, :prenom, :email, :password, :role_id, :campus, true, NOW(), false)";
         $tab = [
             "nom" => $data['nom'] ?? null,
             "prenom" => $data['prenom'] ?? null,
             "email" => $data['email'],
             "password" => $hash,
             "role_id" => $data['role_id'] ?? 2,
-            "telephone" => $data['telephone'] ?? null,
-            "adresse" => $data['adresse'] ?? null
+            "campus" => $data['campus'] ?? null
         ];
         $result=Database::execute($rq, $tab);
 
@@ -57,16 +56,14 @@ class UserService{
                 nom = :nom,
                 prenom = :prenom,
                 email = :email,
-                telephone = :telephone,
-                ville = :adresse
+                campus = :campus
                WHERE id = :id";
         $tab = [
             "id" => $id,
             "nom" => $data['nom'],
             "prenom" => $data['prenom'],
             "email" => $data['email'],
-            "telephone" => $data['telephone'],
-            "adresse" => $data['adresse']
+            "campus" => $data['campus']
         ];
         $result = Database::execute($rq, $tab);
         return $result;
@@ -99,12 +96,12 @@ class UserService{
     }
     //activate
     public static function activate($id){
-        $rq = "UPDATE utilisateurs SET est_actif = 1 WHERE id = :id";
+        $rq = "UPDATE utilisateurs SET est_actif = true WHERE id = :id";
         return Database::execute($rq, ['id' => $id]);
     }
     //deactivate
     public static function deactivate($id){
-        $rq = "UPDATE utilisateurs SET est_actif = 0 WHERE id = :id";
+        $rq = "UPDATE utilisateurs SET est_actif = false WHERE id = :id";
         return Database::execute($rq, ['id' => $id]);
     }
     //Update password
@@ -122,7 +119,7 @@ class UserService{
         }
 
         $hash = password_hash($new, PASSWORD_BCRYPT);
-        $rq = "UPDATE utilisateurs SET password = :password WHERE id = :id";
+        $rq = "UPDATE utilisateurs SET mot_de_passe = :password WHERE id = :id";
         return Database::execute($rq, [
             'id' => $id,
             'password' => $hash

@@ -16,7 +16,21 @@ class Router
     private function addRoute(string $method, string $uri, string $action, array $middlewares, ?string $name): void
     {
         // Transforme /annonce/{id} en regex
-        $pattern = preg_replace('#\{([a-zA-Z0-9_]+)\}#', '(?P<$1>[a-zA-Z0-9_-]+)', $uri);
+        $pattern = preg_replace_callback(
+            '#\{([a-zA-Z0-9_]+)\}#',
+            function ($matches) {
+                $param = $matches[1];
+
+                // Cas spécial pour les fichiers (autorise .)
+                if ($param === 'fichier') {
+                    return '(?P<' . $param . '>.+)';
+                }
+
+                // Cas normal
+                return '(?P<' . $param . '>[a-zA-Z0-9_-]+)';
+            },
+            $uri
+        );
         $pattern = "#^" . trim($pattern, '/') . "$#";
 
         $this->routes[] = [
@@ -33,6 +47,8 @@ class Router
     {
         $method = $_SERVER['REQUEST_METHOD'];
         $requestUri = $this->normalize(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) ?? '/');
+
+        Middleware::injectGlobals();
 
         foreach ($this->routes as $route) {
             if ($route['method'] === $method) {

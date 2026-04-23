@@ -3,8 +3,8 @@
 class Conversation{
     private $id;
     private $annonce_id;
-    private $utilisateur1_id;
-    private $utilisateur2_id;
+    private $acheteur_id;
+    private $vendeur_id;
     private $status;
     private $avis_laisse;
     private $dernier_message;
@@ -21,14 +21,14 @@ class Conversation{
         return $this->annonce_id;
     }
 
-    public function getUtilisateur1Id()
+    public function getAcheteurId()
     {
-        return $this->utilisateur1_id;
+        return $this->acheteur_id;
     }
 
-    public function getUtilisateur2Id()
+    public function getVendeurId()
     {
-        return $this->utilisateur2_id;
+        return $this->vendeur_id;
     }
 
     public function getStatus()

@@ -7,8 +7,7 @@ class User{
     private $email;
     private $mot_de_passe;
     private $role_id;
-    private $telephone;
-    private $ville;
+    private $campus;
     private $est_actif;
     private $date_inscription;
     private $email_verifie;
@@ -51,14 +50,9 @@ class User{
         return $this->email;
     }
 
-    public function getTelephone()
+    public function getCampus()
     {
-        return $this->telephone;
-    }
-
-    public function getAdresse()
-    {
-        return $this->ville;
+        return $this->campus;
     }
 
     public function getEstActif()

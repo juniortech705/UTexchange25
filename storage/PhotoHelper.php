@@ -14,7 +14,7 @@ class PhotoHelper{
 
     /** Upload
      * Traite les fichiers uploadés depuis $_FILES.
-     * Valide et déplace chaque fichier dans storage/uploads/annonces/{id}/.
+     * Valide et déplace chaque fichier dans storage/uploads/annonce/{id}/.
      */
     public function processUpload(array $files, int $annonceId, int $existingCount = 0): array
     {
@@ -83,7 +83,7 @@ class PhotoHelper{
     //Suppression du dossier d'une annonce si vide
     public function deleteAnnonceDir(int $annonceId): void
     {
-        $dir = $this->storageRoot . '/uploads/annonces/' . $annonceId;
+        $dir = $this->storageRoot . '/uploads/annonce/' . $annonceId;
         if (is_dir($dir) && count(scandir($dir)) === 2) { // 2 = . et ..
             rmdir($dir);
         }
@@ -121,7 +121,7 @@ class PhotoHelper{
     //Déplace le fichier vers storage et retourne le chemin pour la BD
     private function move(array $file, int $annonceId): ?string
     {
-        $dir = $this->storageRoot . '/uploads/annonces/' . $annonceId;
+        $dir = $this->storageRoot . '/uploads/annonce/' . $annonceId;
 
         if (!is_dir($dir)) {
             mkdir($dir, 0755, true);
@@ -135,7 +135,7 @@ class PhotoHelper{
             return null;
         }
 
-        return 'annonces/' . $annonceId . '/' . $filename;
+        return 'annonce/' . $annonceId . '/' . $filename;
     }
     //Pour gérer si on a un fichier unique ou multiple
     private function normalizeFiles(array $files): array

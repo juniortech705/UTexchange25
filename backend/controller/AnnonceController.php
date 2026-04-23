@@ -1,15 +1,12 @@
 <?php
 require_once __DIR__ . '/BaseController.php';
 require_once __DIR__ . '/../services/AnnonceService.php';
+require_once __DIR__ . '/../services/CategorieService.php';
 require_once __DIR__ . '/../services/PhotoService.php';
 require_once __DIR__ . '/../services/FavoriService.php';
+require_once __DIR__ . '/../services/UserService.php';
 
 class AnnonceController extends BaseController {
-    //all
-    public function index() {
-        $annonces = AnnonceService::getAll();
-        $this->render('annonce/index', ['annonces' => $annonces]); //redirection sur home plus tard
-    }
     //show
     public function show($id) {
         $annonce = AnnonceService::getById($id);
@@ -20,16 +17,20 @@ class AnnonceController extends BaseController {
         //incrementation du nombre de vues
         AnnonceService::incrementView($id);
 
+        $seller = UserService::getById($annonce->getUtilisateurId());
         $photos = PhotoService::getByAnnonce($id);
         $cover = PhotoService::getCover($id);
         $this->render('annonce/show', [
             'annonce' => $annonce,
             'photos' => $photos,
-            'cover' => $cover]);
+            'cover' => $cover,
+            'seller' => $seller,
+        ]);
     }
     //add
     public function addForm() {
-        $this->render('annonce/create');
+        $categories = CategorieService::getAll();
+        $this->render('annonce/create', ['categories' => $categories]);
     }
     public function add() {
         $data = [
@@ -37,15 +38,15 @@ class AnnonceController extends BaseController {
             'categorie_id'   => $this->input('categorie_id'),
             'title'          => $this->input('title'),
             'description'    => $this->input('description'),
-            'price'          => $this->input('price', 0),
-            'type'           => $this->input('type', 'vente'),
-            'status'         => 'active',
+            'price'          => $this->input('price'),
+            'type'           => $this->input('type'),
+            'status'         => $this->input('status'),
             'location'       => $this->input('location'),
         ];
         $annonce_id= AnnonceService::add($data);
         if (!$annonce_id) {
             Session::flash('error', 'Erreur lors de la création de l\'annonce.');
-            $this->redirect('/annonces/create');
+            $this->redirect('/annonce/create');
         }
 
         //upload des photos
@@ -58,12 +59,13 @@ class AnnonceController extends BaseController {
         }
 
         Session::flash('success', 'Annonce créée avec succès');
-        $this->redirect('/annonces/' . $annonce_id);
+        $this->redirect('/annonce/' . $annonce_id);
 
     }
     //update
     public function editForm($id) {
         $annonce = AnnonceService::getById($id);
+        $categories = CategorieService::getAll();
         if (!$annonce) {
             $this->redirect('/404');
         }
@@ -72,7 +74,7 @@ class AnnonceController extends BaseController {
 
         $photos = PhotoService::getByAnnonce($id);
 
-        $this->render('annonce/edit', ['annonce' => $annonce, 'photos' => $photos]);
+        $this->render('annonce/edit', ['annonce' => $annonce, 'photos' => $photos, 'categories' => $categories]);
     }
     public function edit($id) {
         $annonce = AnnonceService::getById($id);
@@ -84,18 +86,18 @@ class AnnonceController extends BaseController {
             'description'  => $this->input('description'),
             'price'        => $this->input('price', 0),
             'type'         => $this->input('type'),
-            'status'       => $this->input('status', $annonce->getStatus()),
+            'status'       => $this->input('status'),
             'location'     => $this->input('location'),
         ];
 
         $result= AnnonceService::update($id, $data);
         if (!$result) {
             Session::flash('error', 'Erreur modification');
-            $this->redirect('/annonces/edit/' . $id);
+            $this->redirect('/annonce/edit/' . $id);
         }
 
         //upload des nouvelles photos
-        if (!empty($_FILES['photos'])) {
+        if (!empty($_FILES['photos']) && $_FILES['photos']['error'][0] !== UPLOAD_ERR_NO_FILE){
             $upload = PhotoService::upload($_FILES['photos'], $id);
             if (!$upload['success']) {
                 Session::flash('warning', implode('<br>', $upload['errors']));
@@ -103,7 +105,7 @@ class AnnonceController extends BaseController {
         }
 
         Session::flash('success', 'Annonce modifiée');
-        $this->redirect('/annonces/' . $id);
+        $this->redirect('/annonce/' . $id);
     }
     //delete
     public function delete($id) {
@@ -119,9 +121,14 @@ class AnnonceController extends BaseController {
     //ByUser
     public function myAnnonces() {
         $annonces= AnnonceService::getAllByUser(Session::userId());
-        $this->render('annonce/myAnnonces', ['annonces' => $annonces]);
+
+        $covers=[];
+        foreach ($annonces as $annonce) {
+            $covers [$annonce->getId()] = PhotoService::getCover($annonce->getId());
+        }
+        $this->render('annonce/myannonces', ['annonces' => $annonces, 'covers' => $covers]);
     }
-    //deletePhoto (AJAX)
+    //deletePhoto (Ajax)
     public function deletePhoto($id) {
         $photo = PhotoService::getById($id);
         if (!$photo) {
@@ -135,7 +142,7 @@ class AnnonceController extends BaseController {
         PhotoService::delete($id);
         $this->json(['success' => true, 'message' => 'Photo supprimée.']);
     }
-    //photo de couverture (AJAX)
+    //photo de couverture (Ajax)
     public function setCover($id) {
         $photo = PhotoService::getById($id);
         if (!$photo) {
@@ -145,12 +152,14 @@ class AnnonceController extends BaseController {
         if (!$annonce || $annonce->getUtilisateurId() != Session::userId()) {
             $this->json(['success' => false, 'message' => 'Non autorisé.'], 403);
         }
+
         PhotoService::setCover($id, $photo->getAnnonceId());
         $this->json(['success' => true, 'message' => 'Photo de couverture mise à jour.']);
     }
     //renvoie une photo
     public function servePhoto($annonceId, $fichier) {
-        PhotoService::serve($annonceId, $fichier);
+        $fic= urldecode($fichier);
+        PhotoService::serve($annonceId, $fic);
     }
     //updateType
     public function updateType($id){
@@ -181,7 +190,7 @@ class AnnonceController extends BaseController {
     }
 
     //Gestion des favoris
-    //toggle (AJAX)
+    //toggle (Ajax)
     public function toggleFavori($id){
         if (!Session::isLoggedIn()) {
             $this->json(['success' => false, 'message' => 'Utilisateur non connecté'], 403);
@@ -196,7 +205,7 @@ class AnnonceController extends BaseController {
         $result = FavoriService::toggle($userId, $id);
         $this->json(['success' => true, 'action' => $result]); //added ou removed
     }
-    //isFavori (AJAX)
+    //isFavori (Ajax)
     public function isFavori($id){
         if (!Session::isLoggedIn()) {
             $this->json(['favori' => false]);

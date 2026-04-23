@@ -77,7 +77,7 @@ class AnnonceService{
     }
     //all
     public static function getAll(){
-        $rq= "SELECT * FROM annonces";
+        $rq= "SELECT * FROM annonces WHERE status = 'active'";
         return Database::query($rq, "Annonce");
     }
     //getByID
@@ -132,5 +132,10 @@ class AnnonceService{
 
         return Database::execute($rq, $tab);
     }
-
+    //GetByCategory
+    public static function getByCategorieId($categorieId){
+        $rq= "SELECT * FROM annonces WHERE categorie_id = :categorie_id ORDER BY created_at LIMIT 10";
+        $tab["categorie_id"] = $categorieId;
+        return Database::query($rq, "Annonce", $tab);
+    }
 }

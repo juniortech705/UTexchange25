@@ -52,7 +52,7 @@ abstract class BaseController
         return $_SERVER['REQUEST_METHOD'] === 'POST';
     }
 
-    //Vérifie si la requête est une requête AJAX.
+    //Vérifie si la requête est une requête Ajax.
     protected function isAjax(): bool
     {
         return ($_SERVER['HTTP_X_REQUESTED_WITH'] ?? '') === 'XMLHttpRequest';

@@ -1,5 +1,5 @@
 <?php
-
+require_once __DIR__ . '/../services/CategorieService.php';
 /**
  * Middleware
  * Intercepteurs exécutés avant chaque action de controller.
@@ -11,9 +11,32 @@ class Middleware
     public static function auth(): void
     {
         if (!Session::isLoggedIn()) {
-            // Mémorise l'URL demandée pour rediriger après login
+
+            // détecter AJAX
+            $isAjax = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&
+                strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
+
+            if ($isAjax) {
+                http_response_code(401);
+                echo json_encode([
+                    'success' => false,
+                    'message' => 'Non authentifié'
+                ]);
+                exit;
+            }
+
+            // requête classique
             Session::flash('info', 'Veuillez vous connecter pour accéder à cette page.');
-            Session::set('_redirect_after_login', $_SERVER['REQUEST_URI']);
+
+            $current = $_SERVER['REQUEST_URI'];
+
+            if (
+                !Session::get('_redirect_after_login') &&
+                $current !== '/login'
+            ) {
+                Session::set('_redirect_after_login', $current);
+            }
+
             self::redirect('/login');
         }
     }
@@ -21,7 +44,7 @@ class Middleware
     public static function guest(): void
     {
         if (Session::isLoggedIn()) {
-            self::redirect('/dashboard');
+            self::redirect('/');
         }
     }
     //Middleware : validation du token CSRF sur les requêtes POST.
@@ -31,9 +54,27 @@ class Middleware
             return;
         }
 
+        // 1. token depuis POST classique
         $token = $_POST['_csrf_token'] ?? '';
 
+        // 2. fallback AJAX header
+        if (!$token) {
+            $headers = getallheaders();
+            $token = $headers['X-CSRF-TOKEN']
+                ?? $headers['x-csrf-token']
+                ?? '';
+        }
+
         if (!Session::validateCsrf($token)) {
+            if (!empty($_SERVER['HTTP_X_REQUESTED_WITH'])) {
+                http_response_code(403);
+                echo json_encode([
+                    'success' => false,
+                    'message' => 'CSRF invalid'
+                ]);
+                exit;
+            }
+
             Session::flash('error', 'Session expirée ou requête invalide.');
             self::redirect($_SERVER['HTTP_REFERER'] ?? '/');
         }
@@ -43,7 +84,7 @@ class Middleware
     public static function admin(): void
     {
         self::auth(); // vérifie d'abord que l'user est connecté
-        if (Session::userRole() !== 'admin') {
+        if (Session::userRole() !== 'Administrateur') {
             http_response_code(403);
             self::redirect('/403');
         }
@@ -54,7 +95,7 @@ class Middleware
     {
         self::auth();
         $role = Session::userRole();
-        if (!in_array($role, ['admin', 'moderateur'])) {
+        if (!in_array($role, ['Administrateur', 'Moderateur'])) {
             http_response_code(403);
             self::redirect('/403');
         }
@@ -64,5 +105,14 @@ class Middleware
     {
         header("Location: $url");
         exit;
+    }
+
+    //Middleware pour servir nav
+    public static function injectGlobals(): void
+    {
+        // Chargé une fois, disponible dans toutes les vues via une variable globale
+        if (!isset($GLOBALS['nav_categories'])) {
+            $GLOBALS['nav_categories'] = CategorieService::getParentsWithChildren();
+        }
     }
 }

@@ -21,12 +21,16 @@ class PhotoService{
         //On retire cover à l'annonce
         $rq1="UPDATE photos SET is_cover = FALSE WHERE annonce_id = :annonce_id";
         $tab1["annonce_id"] = $annonceId;
-        Database::execute($rq1, $tab1);
+        $r1=Database::execute($rq1, $tab1);
 
-        //On met le cover à la photo
-        $rq2= "UPDATE photos SET is_cover = true WHERE id = :id";
-        $tab2["id"] = $id;
-        Database::execute($rq2, $tab2);
+        if($r1){
+            //On met le cover à la photo
+            $rq2= "UPDATE photos SET is_cover = TRUE WHERE id = :id";
+            $tab2["id"] = $id;
+            return Database::execute($rq2, $tab2);
+        }
+
+        return false;
     }
     //deleteByAnnonce
     public static function deleteByAnnonce($annonceId){
@@ -76,17 +80,23 @@ class PhotoService{
             return ['success' => false, 'errors' => $result['errors']];
         }
 
-        $hasCover= self::getCover($annonceId) !==null; //check si on a déjà une photo de couverture
-        $isFirst = !$hasCover; // true si on a pas encore de couverture
+        $hasCover=self::getCover($annonceId);
+        if($hasCover){
+            $first=true;
+        }else{
+            $first=false;
+        }
+
         foreach ($result['files'] as $fileData) {
+            $tab=explode('/', $fileData['chemin_fichier']);
             self::save([
                 'annonce_id'     => $annonceId,
                 'chemin_fichier' => $fileData['chemin_fichier'],
-                'nom_fichier'    => $fileData['nom_fichier'],
+                'nom_fichier'    => end($tab),
                 'taille_fichier' => $fileData['taille_fichier'],
-                'is_cover'       => $isFirst,
+                'is_cover'       => $first,
             ]);
-            $isFirst = false;
+            $first = false;
         }
 
         return ['success' => true, 'errors' => $result['errors']];
@@ -112,7 +122,7 @@ class PhotoService{
     }
     //serve
     public static function serve($annonceId, $nomFichier){
-        $path = 'annonces/' . $annonceId . '/' . $nomFichier;
+        $path = 'annonce/' . $annonceId . '/' . $nomFichier;
 
         //vérification du chemin dans la BD
         $rq= "SELECT id FROM photos WHERE chemin_fichier = :path";
