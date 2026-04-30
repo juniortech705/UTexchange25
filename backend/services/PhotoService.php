@@ -81,7 +81,7 @@ class PhotoService{
         }
 
         $hasCover=self::getCover($annonceId);
-        if($hasCover){
+        if($hasCover === false){
             $first=true;
         }else{
             $first=false;

@@ -38,7 +38,7 @@ class MessageService{
         return Database::query($rq, 'Message', ['id' => $id]);
     }
     //getNewMessage (Pour Ajax, ainsi on pourra éviter de recharger toute la vue)
-    public static function getNewMessage($conversationId, $lastMessageId){
+    public static function getNewMessages($conversationId, $lastMessageId){
         $rq = "SELECT * FROM messages WHERE conversation_id = :conv_id AND id > :last_id ORDER BY created_at ASC";
 
         $tab = [
@@ -58,13 +58,6 @@ class MessageService{
 
         return Database::execute($rq, ['conv_id' => $conversationId, 'user_id' => $userId]);
     }
-    //countUnread
-    public static function countUnread($conversationId, $userId){
-        $rq = "SELECT COUNT(*) FROM messages
-               WHERE conversation_id = :conv_id AND expediteur_id != :user_id AND is_read = false";
-
-        return Database::count($rq, ['conv_id' => $conversationId, 'user_id' => $userId]);
-    }
     //delete
     public static function delete($id){
         $rq = "DELETE FROM messages WHERE id = :id";
@@ -72,6 +65,12 @@ class MessageService{
 
         return Database::execute($rq, $tab);
 
+    }
+    //update
+    public static function update($id, $contenu){
+        $rq = "UPDATE messages SET contenu = :contenu WHERE id = :id";
+
+        return Database::execute($rq, ['id' => $id, 'contenu' => trim($contenu)]);
     }
     //helpers (pour la conversion de l'objet Message en json que consommera Ajax)
     public static function toArray(object $message): array

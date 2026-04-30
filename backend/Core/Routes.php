@@ -52,10 +52,31 @@ $router->post('/annonce/delete/{id}', 'AnnonceController@delete', ['auth', 'csrf
 $router->post('/annonce/type/{id}', 'AnnonceController@updateType', ['auth', 'csrf']);
 $router->post('/annonce/status/{id}', 'AnnonceController@updateStatus', ['auth', 'csrf']);
 $router->get('/annonce/photo/{annonceId}/{fichier}', 'AnnonceController@servePhoto');
+
 //Photos (Ajax)
 $router->post('/photos/delete/{id}', 'AnnonceController@deletePhoto', ['auth', 'csrf']);
 $router->post('/photos/cover/{id}', 'AnnonceController@setCover', ['auth', 'csrf']);
+
 //Favoris (Ajax)
 $router->post('/annonce/{id}/favori', 'AnnonceController@toggleFavori', ['auth', 'csrf']);
 $router->get('/annonce/{id}/is-favori', 'AnnonceController@isFavori', []);
 $router->get('/favoris', 'AnnonceController@favoris', ['auth']);
+
+//Conversations
+$router->get('/conversations', 'ConversationController@index', ['auth']);
+$router->post('/conversations/start', 'ConversationController@start', ['auth', 'csrf']);
+$router->post('/conversations/terminate/{id}', 'ConversationController@terminate', ['auth', 'csrf']);
+$router->post('/conversations/delete/{id}', 'ConversationController@delete', ['auth', 'csrf']);
+$router->get('/conversations/{id}', 'ConversationController@show', ['auth']);
+
+//Messages (Ajax)
+$router->post('/conversations/{id}/messages/send', 'ConversationController@send', ['auth', 'csrf']);
+$router->post('/messages/delete/{id}', 'ConversationController@deleteMessage', ['auth', 'csrf']);
+$router->post('/messages/update/{id}', 'ConversationController@update', ['auth', 'csrf']);
+$router->get('/conversations/{id}/messages', 'ConversationController@getMessages', ['auth']);
+$router->post('/conversations/{id}/read', 'ConversationController@markAsRead', ['auth', 'csrf']);
+$router->get('/messages/unread-count', 'ConversationController@countUnreadMessages', ['auth']);
+
+//Avis
+$router->post('/conversations/{id}/avis', 'ConversationController@addAvis', ['auth', 'csrf']);
+$router->post('/avis/delete/{id}', 'ConversationController@deleteAvis', ['auth', 'csrf']);

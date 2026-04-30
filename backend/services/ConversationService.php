@@ -78,5 +78,11 @@ class ConversationService{
             ? $conversation->getVendeurId()
             : $conversation->getAcheteurId();
     }
+    //resetAvis
+    public static function resetAvis(int $conversationId){
+        $rq="UPDATE conversations SET avis_laisse = false WHERE id = :id";
+
+        return Database::execute($rq, ['id' => $conversationId]);
+    }
 
 }
