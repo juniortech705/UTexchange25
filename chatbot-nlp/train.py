@@ -28,6 +28,7 @@ for intent in intents['intents']:
         xy.append((words, tag))
 
 print(f" {len(xy)} patterns chargés")
+
 print(f" {len(tags)} tags trouvés: {tags}")
 
 # Preprocessing
