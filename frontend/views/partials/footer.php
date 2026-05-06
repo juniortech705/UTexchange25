@@ -32,4 +32,11 @@
     <div class="footer-bottom">
         <p>&copy; 2026 UTexchange - Réseau des Universités de Technologie (UTC, UTT, UTBM)</p>
     </div>
+
+    <!-- Chatbot -->
+    <?php include_once __DIR__ . '/../../chatbot.html'; ?>
+
+    <!-- 🔥 JS corrigé (IMPORTANT) -->
+    <script src="/UTexchange25/frontend/js/chat.js"></script>
+
 </footer>

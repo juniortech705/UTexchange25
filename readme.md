@@ -180,3 +180,15 @@ Les middlewares (`backend/Core/Middleware.php`) sont des intercepteurs exécuté
 - PostgreSQL
 - HTML/CSS/JavaScript
 - Architecture MVC personnalisée
+
+## Module Chatbot "Michele" (Update 2026)
+
+Ce projet inclut désormais un assistant virtuel intelligent.
+- **Backend IA** : Serveur Flask dans `/chatbot-nlp`.
+- **Frontend** : Composants dans `/frontend` (intégré via `footer.php`).
+
+### Quick Start pour le développeur backend :
+1. Lancer l'IA : `cd chatbot-nlp/app && python main.py` (Port 5000).
+2. Vérifier l'UI : Ouvrir `frontend/test_chat.html` dans le navigateur.
+
+

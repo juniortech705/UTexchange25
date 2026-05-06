@@ -3,11 +3,14 @@
     {
       "tag": "salutation",
       "patterns": [
-        "Bonjour",
         "Salut",
+        "Salut Michele",
+        "Bonjour",
+        "Bonjour Michele",
         "salut",
         "Hey",
         "Coucou",
+        "Coucou Michele",
         "Bonsoir",
         "Hello",
         "Hi",
@@ -45,6 +48,8 @@
       "tag": "remerciement",
       "patterns": [
         "Merci",
+        "ok",
+        "OK",
         "Merci beaucoup",
         "Merci bien",
         "Thanks",
@@ -72,10 +77,10 @@
         "Comment on t'appelle ?"
       ],
       "responses": [
-        "Je suis le chatbot d'UTexchange !",
-        "On m'appelle le bot UTexchange.",
-        "Je suis ton assistant virtuel UTexchange.",
-        "Mon nom est UTexchange Bot, ravi de te parler !"
+        "Je suis Michele le chatbot d'UTexchange !",
+        "On m'appelle le chatbot UTexchange, mais appelle moi Michele.",
+        "Je suis Michele ton assistant virtuel UTexchange.",
+        "Mon nom est Michele, ravi de te parler !"
       ]
     },
     {
@@ -205,9 +210,9 @@
       ]
     },
     {
-      "tag":"annonces",
+      "tag":"annonce",
       "patterns": [
-  "comment poser une annonces ?",
+  "comment poser une annonce ?",
   "annonces",
   "annonce",
   "où poser les annonces ?",
@@ -215,8 +220,9 @@
   "page des annonces ?",
   "poser des annonces ?"
   ],
-  "response": [
-    "rendez vous sur créer une annonce !"
+  "responses": [
+    "Pour poser une annonce, veuillez cliquer sur 'déposer une une annonce' ! \n ou cliquer sur ce lien --> /annonce/create"
+
   ]
     },
     {
@@ -229,6 +235,40 @@
          "pour modifier votre, allez sur votre icone -> modifier"
       ]
     },
+
+    {
+      "tag": "Michele",
+      "patterns":[
+        "pourquoi on t'appel michele?", "pourquoi michele ?", "qui t'a donné ce nom ", "pourquoi ce nom ?",
+        "c'est quoi ce nom, michele ?"
+      ],
+      "responses":[
+        "Michele fait partie des developpeu(ses)rs de ce site, \n C'est la cruch de mon créateur 😊"
+      ]
+    },
+
+    {
+     "tag": "equipe",
+     "patterns":[
+      "qui ont developpé ce site", "qui sont les developpeurs de ce site?","qui a eu cette idée?", 
+      "qui sont les propriétaire de ce projet ", "qui on developpé utexchange ?", "qui sont les membre de ce projet", "quels sont les membre du groupe"
+     ],
+     "responses":[
+      "Les membres de ce groupe sont :\n -Junior Angambun,\n -Andy Daryl DEDZO TSAPI,\n -Michele ANDE TSHINDA,\n -Jordan SODJINOU"
+     ]
+
+    },
+
+    {
+      "tag": "créateur",
+      "patterns":[
+        "qui est ton créateur?", "qui t'a codé", "qui t'a créé", "et c'est qui ton créateur?", "c'est qui?"
+      ],
+      "responses":[
+        "Mon créateur s'appelle Junior", "C'est Junior, un Quantum Machine learning Enginneer"
+      ]
+    },
+
     {
       "tag": "cathegories",
       "patterns" : [
@@ -238,7 +278,7 @@
         "cathégorie"
       ],
       "responses" :[
-        "Les cathégories sont : ventes,troc, location et don \n Les sous cathégories sont: livres, électronique, vetremens , électroménager"
+        "Les cathégories sont : Ventes, Troc, Location et Don \n Les sous cathégories sont: Livres, Electronique, vêtements , Electroménagers"
        ]
     },
     {
@@ -251,7 +291,7 @@
             "Université de Technologie de Belfort Montbéliard","universite de technologie de Belfort-Montbeliard",
             "université de technologie de Belfort-Montbéliard","c'est quoi l'université de technologie de Belfort-Montbéliard ?"
       ],
-      "responses": ["L'UTBM est une école d'ingénieur constitué de trois campus:\n-Sevenan: Pour le TC et mecnique, \n-Belfort: Pour l'informatique et l'énergie, \n-Montbéliard: Pour l'ergonomie et le design"]
+      "responses": ["L'UTBM est une école d'ingénieur du groupe des UT constituée de trois campus:\n-Sevenan: Pour le TC et mécanique, \n-Belfort: Pour l'informatique et l'énergie, \n-Montbéliard: Pour l'ergonomie et le design"]
     }
   ]
 }

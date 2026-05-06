@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Michele Solo</title>
+</head>
+<body style="background-color: #f0f0f0;">
+
+<!-- Widget Bouton Flottant -->
+<div id="chat-widget-button" onclick="toggleChat()" style="position: fixed; bottom: 20px; right: 20px; width: 60px; height: 60px; background-color: #2D8CFF; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 1000;">
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+    </svg>
+</div>
+
+<!-- Fenêtre de Chat (Style Zoom) -->
+<div id="chat-window" style="display: none; position: fixed; bottom: 90px; right: 20px; width: 380px; height: 600px; background-color: #1A1A1A; border-radius: 15px; flex-direction: column; box-shadow: 0 8px 25px rgba(0,0,0,0.5); overflow: hidden; z-index: 1000; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+    
+    <!-- Header -->
+    <div style="background: linear-gradient(90deg, #2D8CFF 0%, #AA80FF 100%); padding: 20px; color: white; display: flex; align-items: center; justify-content: space-between;">
+        <div>
+            <h3 style="margin: 0; font-size: 1.2em;">Michele</h3>
+            <span style="font-size: 0.8em; opacity: 0.9;">En ligne</span>
+        </div>
+        <div style="display: flex; gap: 15px; align-items: center;">
+            <!-- Bouton Effacer (Poubelle) -->
+            <button onclick="clearChat()" title="Effacer la conversation" style="background: transparent; border: none; color: white; cursor: pointer; display: flex; align-items: center; opacity: 0.8;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="3 6 5 6 21 6"></polyline>
+                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                    <line x1="10" y1="11" x2="10" y2="17"></line>
+                    <line x1="14" y1="11" x2="14" y2="17"></line>
+                </svg>
+            </button>
+            <!-- Bouton Fermer -->
+            <button onclick="toggleChat()" style="background: transparent; border: none; color: white; font-size: 24px; cursor: pointer; line-height: 1;">&times;</button>
+        </div>
+    </div>
+
+    <!-- Zone des Messages -->
+    <div id="messages" style="flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; background-color: #1A1A1A;">
+        <div id="welcome-msg" style="align-self: flex-start; background-color: #333; color: white; padding: 12px 16px; border-radius: 15px 15px 15px 2px; max-width: 80%; font-size: 0.95em;">
+            Bonjour je suis Michele ! Comment puis-je vous aider aujourd'hui ?
+        </div>
+    </div>
+
+    <!-- Zone de Saisie -->
+    <div style="padding: 20px; background-color: #1A1A1A; border-top: 1px solid #333;">
+        <div style="background-color: #2A2A2A; border-radius: 12px; padding: 10px; display: flex; align-items: center;">
+            <input type="text" id="chat-input" placeholder="Écrire un message..." style="flex: 1; background: transparent; border: none; color: white; outline: none; padding: 5px 10px;">
+            <button onclick="sendMessage()" style="background: #333; border: none; border-radius: 50%; width: 35px; height: 35px; color: white; cursor: pointer; display: flex; align-items: center; justify-content: center;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+            </button>
+        </div>
+        <p style="color: #666; font-size: 0.7em; text-align: center; margin-top: 10px;">UTexchange 2026 - Assistant Virtuel</p>
+    </div>
+</div>
+
+<script>
+// --- OUVERTURE / FERMETURE ---
+function toggleChat() {
+    const win = document.getElementById('chat-window');
+    win.style.display = (win.style.display === 'none' || win.style.display === '') ? 'flex' : 'none';
+}
+
+// --- EFFACER LE CHAT ---
+function clearChat() {
+    if (confirm("Voulez-vous effacer toute la conversation ?")) {
+        const container = document.getElementById("messages");
+        container.innerHTML = `
+            <div style="align-self: flex-start; background-color: #333; color: white; padding: 12px 16px; border-radius: 15px 15px 15px 2px; max-width: 80%; font-size: 0.95em;">
+                Bonjour je suis Michele ! Comment puis-je vous aider aujourd'hui ?
+            </div>
+        `;
+    }
+}
+
+// --- ENVOI DE MESSAGE ---
+async function sendMessage() {
+    const input = document.getElementById("chat-input");
+    const container = document.getElementById("messages");
+
+    if (!input || !container) return;
+
+    const message = input.value.trim();
+    if (!message) return;
+
+    // 1. Afficher message utilisateur
+    container.innerHTML += `
+        <div style="align-self: flex-end; background-color: #2D8CFF; color: white; padding: 10px 15px; border-radius: 15px 15px 2px 15px; margin-bottom: 5px; max-width: 80%; word-wrap: break-word;">
+            ${message}
+        </div>
+    `;
+
+    input.value = "";
+    container.scrollTop = container.scrollHeight;
+
+    try {
+        // 2. Appel Flask
+        const response = await fetch("http://127.0.0.1:5000/chat", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ message: message })
+        });
+
+        const data = await response.json();
+
+        // 3. Afficher réponse Michele
+        container.innerHTML += `
+            <div style="align-self: flex-start; background-color: #333; color: white; padding: 10px 15px; border-radius: 15px 15px 15px 2px; margin-bottom: 5px; max-width: 80%; word-wrap: break-word;">
+                ${data.response}
+            </div>
+        `;
+        
+    } catch (error) {
+        console.error("Erreur Flask:", error);
+        container.innerHTML += `<div style="color: #ff4d4d; font-size: 0.8em; align-self: center;">Connexion perdue avec Michele.</div>`;
+    }
+
+    container.scrollTop = container.scrollHeight;
+}
+
+// Touche Entrée
+document.addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') {
+        const input = document.getElementById("chat-input");
+        if (document.activeElement === input) sendMessage();
+    }
+});
+</script>
+
+</body>
+</html>
