@@ -72,6 +72,31 @@ class MessageService{
 
         return Database::execute($rq, ['id' => $id, 'contenu' => trim($contenu)]);
     }
+    //countUnread
+    public static function countUnreadGrouped($userId) {
+        $rq = "
+        SELECT conversation_id, COUNT(*) as nb
+        FROM messages m
+        JOIN conversations c ON c.id = m.conversation_id
+        WHERE (c.acheteur_id = :id OR c.vendeur_id = :id2)
+          AND m.expediteur_id != :id3
+          AND m.is_read = false
+        GROUP BY conversation_id
+    ";
+
+        $rows = Database::query($rq, 'stdClass', [
+            'id' => $userId,
+            'id2' => $userId,
+            'id3' => $userId
+        ]);
+
+        $result = [];
+        foreach ($rows as $row) {
+            $result[$row->conversation_id] = (int)$row->nb;
+        }
+
+        return $result;
+    }
     //helpers (pour la conversion de l'objet Message en json que consommera Ajax)
     public static function toArray(object $message): array
     {

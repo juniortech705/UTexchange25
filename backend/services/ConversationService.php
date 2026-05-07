@@ -8,7 +8,7 @@ class ConversationService{
         // Vérifie si une conversation existe déjà
         $existing = self::getByAnnonceAndBuyer($annonceId, $buyerId);
         if ($existing) {
-            return $existing;
+            return $existing->getId();
         }
 
         $rq = "INSERT INTO conversations
@@ -25,16 +25,16 @@ class ConversationService{
 
         $id = Database::insertAndGetId($rq, $tab);
 
-        return $id ? self::getById((int) $id) : false;
+        return $id;
     }
     //getById
-    public static function getById(int $id){
+    public static function getById($id){
         $rq= "SELECT * FROM conversations WHERE id = :id";
 
         return Database::find($rq, 'Conversation', ['id' => $id]) ?: null;
     }
     //getByUser
-    public static function getByUser(int $userId){
+    public static function getByUser($userId){
         $rq = "SELECT * FROM conversations
                WHERE acheteur_id = :id OR vendeur_id = :id2
                ORDER BY last_message_at DESC";
@@ -69,7 +69,7 @@ class ConversationService{
     //helpers
     //isParticipant
     public static function isParticipant($conversation, $userId){
-        return $conversation->getAcheterurId() == $userId
+        return $conversation->getAcheteurId() == $userId
             || $conversation->getVendeurId() == $userId;
     }
     //getOtherUser
@@ -79,7 +79,7 @@ class ConversationService{
             : $conversation->getAcheteurId();
     }
     //resetAvis
-    public static function resetAvis(int $conversationId){
+    public static function resetAvis($conversationId){
         $rq="UPDATE conversations SET avis_laisse = false WHERE id = :id";
 
         return Database::execute($rq, ['id' => $conversationId]);

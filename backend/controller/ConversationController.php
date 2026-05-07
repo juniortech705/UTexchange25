@@ -3,6 +3,8 @@ require_once __DIR__ . '/BaseController.php';
 require_once __DIR__ . '/../services/ConversationService.php';
 require_once __DIR__ . '/../services/MessageService.php';
 require_once __DIR__ . '/../services/AvisService.php';
+require_once __DIR__ . '/../services/AnnonceService.php';
+require_once __DIR__ . '/../services/UserService.php';
 
 class ConversationController extends BaseController{
     /**
@@ -12,8 +14,20 @@ class ConversationController extends BaseController{
     public function index(){
         $userId = Session::userId();
         $conversations = ConversationService::getByUser($userId);
+        $unreads = MessageService::countUnreadGrouped($userId);
 
-        $this->render('conversations/index', ['conversations' => $conversations]);
+        $data = [];
+        foreach ($conversations as $conv) {
+            $otherId = ConversationService::getOtherUserId($conv, $userId);
+
+            $data[] = [
+                'conversation' => $conv,
+                'otherUser'    => UserService::getById($otherId),
+                'unread'       => $unreads[$conv->getId()] ?? 0,
+            ];
+        }
+
+        $this->render('conversations/index', ['items' => $data]);
     }
     //start
     public function start(){
@@ -30,14 +44,14 @@ class ConversationController extends BaseController{
             $this->redirect('/annonce/' . $annonceId);
         }
 
-        $conversation = ConversationService::getOrCreate($annonceId, $userId, $annonce->getUtilisateurId());
+        $conversationId = ConversationService::getOrCreate($annonceId, $userId, $annonce->getUtilisateurId());
 
-        if (!$conversation) {
+        if (!$conversationId) {
             Session::flash('error', 'Impossible d\'ouvrir la conversation.');
             $this->redirect('/annonce/' . $annonceId);
         }
-
-        $this->redirect('/conversations/' . $conversation->getId());
+        $id= ConversationService::getById($conversationId)->getId();
+        $this->redirect('/conversations/' . $id);
     }
     //show
     public function show($id){
@@ -55,14 +69,28 @@ class ConversationController extends BaseController{
         MessageService::markAsRead($id, $userId);
 
         $otherId = ConversationService::getOtherUserId($conversation, $userId);
+        $other = UserService::getById($otherId);
+
+        $annonce = AnnonceService::getById($conversation->getAnnonceId());
+        $avis = AvisService::getByConversationId($conversation->getId());
+
+        $lastMessageId = 0;
+        if (!empty($messages)) {
+            $last = $messages[count($messages) - 1];
+            if (is_object($last)) {
+                $lastMessageId = $last->getId();
+            }
+        }
 
         $this->render('conversations/show', [
             'conversation' => $conversation,
-            'messages'     => $messages,
-            'userId'       => $userId,
-            'otherId'      => $otherId,
+            'messages' => $messages,
+            'userId' => $userId,
+            'other' => $other,
+            'annonce' => $annonce,
             // id du dernier message pour démarrer le polling JS du front
-            'lastMessageId' => !empty($messages) ? end($messages)->getId() : 0,
+            'lastMessageId' => $lastMessageId,
+            'avis' => $avis,
         ]);
 
     }
@@ -106,6 +134,7 @@ class ConversationController extends BaseController{
         }
 
         $message = MessageService::send($id, $userId, $contenu);
+
         if (!$message) {
             $this->json(['success' => false, 'message' => 'Erreur lors de l\'envoi.'], 500);
         }
@@ -197,6 +226,17 @@ class ConversationController extends BaseController{
         $this->json([
             'success' => true,
             'message' => MessageService::toArray(MessageService::getById($id)),
+        ]);
+    }
+    //sync
+    public function syncMessages($id) {
+        $messages = MessageService::getByConversationId($id);
+        $conversation = ConversationService::getById($id);
+
+        $this->json([
+            'success' => true,
+            'messages' => MessageService::toArrayList($messages),
+            'status' => $conversation->getStatus(),
         ]);
     }
 

@@ -57,6 +57,7 @@
                         <option value="vente">Vente</option>
                         <option value="don">Don (gratuit)</option>
                         <option value="location">Location</option>
+                        <option value="troc">Troc (échange)</option>
                     </select>
                 </div>
                 <div>
@@ -152,6 +153,11 @@
         dropZone.classList.remove('border-blue-500');
 
         handleFiles(e.dataTransfer.files);
+    });
+
+    document.getElementById('type-select').addEventListener('change', function () {
+        document.getElementById('price-block').style.display =
+            this.value === 'don' || this.value === 'troc' ? 'none' : 'block';
     });
 </script>
 </body>

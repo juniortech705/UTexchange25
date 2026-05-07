@@ -11,7 +11,12 @@ class AuthController extends BaseController{
             Session::flash('error', 'Veuillez remplir tous les champs.');
             $this->redirect('/login');
         }
-
+ /*
+        if (!self::isAllowedEmailDomain($email)) {
+            Session::flash('error', 'Seuls les emails universitaires UT sont autorisés.');
+            $this->redirect('/login');
+        }
+*/
         $user= UserService::login($email, $password);
         if(!$user){
             Session::flash('error', 'Identifiant ou mot de passe incorrect.');
@@ -48,6 +53,11 @@ class AuthController extends BaseController{
             $this->redirect('/');
         }
 
+        if (!self::isAllowedEmailDomain($data['email'])) {
+            Session::flash('error', 'Seuls les emails universitaires UT sont autorisés.');
+            $this->redirect('/');
+        }
+
         $result= UserService::register($data);
         if(!$result){
             Session::flash('error', 'Erreur.');
@@ -68,6 +78,21 @@ class AuthController extends BaseController{
 
     public function form(){
         $this->render('users/login');
+    }
+
+    //helpers pour le controle du nom de domaine de email juste pour les UTT
+    private function isAllowedEmailDomain($email){
+        $allowedDomains = [
+            'utbm.fr',
+            'utt.fr',
+            'utc.fr',
+            'uttop.fr'
+        ];
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            return false;
+        }
+        $domain = substr(strrchr($email, "@"), 1);
+        return in_array(strtolower($domain), $allowedDomains);
     }
 
 }

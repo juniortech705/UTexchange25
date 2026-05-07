@@ -7,7 +7,16 @@ const MessagesService = (() => {
                 'X-Requested-With': 'XMLHttpRequest',
             },
             body: new URLSearchParams({ _csrf_token: getCsrfToken(), ...body }),
-        }).then(r => r.json());
+        }).then(async r => {
+            const text = await r.text();
+
+            try {
+                return JSON.parse(text);
+            } catch (e) {
+                console.error("Réponse non JSON :", text);
+                throw e;
+            }
+        });
     }
 
     function get(url) {
@@ -23,8 +32,8 @@ const MessagesService = (() => {
         },
 
         // Récupère les nouveaux messages depuis lastId (polling)
-        getNew(convId) {
-            return get(`/conversations/${convId}/messages`);
+        getNew(convId,  lastId) {
+            return get(`/conversations/${convId}/messages?last_id=${lastId}`);
         },
 
         // Marque les messages comme lus

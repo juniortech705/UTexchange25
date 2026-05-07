@@ -166,6 +166,94 @@
                     <?php endif; ?>
                 </div>
             </div>
+
+            <div>
+                <div style="
+        background:#fff;
+        border:1px solid #f0f0f0;
+        border-radius:16px;
+        padding:22px;
+        box-shadow:0 2px 12px rgba(0,0,0,.04);
+    ">
+
+                    <!-- HEADER -->
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+                        <h2 style="font-size:1rem;font-weight:700;color:#111;">
+                            Avis reçus
+                        </h2>
+                    </div>
+
+                    <?php if (!empty($avis)): ?>
+
+                        <?php foreach (array_slice($avis, 0, 5) as $a): ?>
+
+                            <div style="
+                    border:1px solid #f3f4f6;
+                    border-radius:12px;
+                    padding:12px;
+                    margin-bottom:10px;
+                    transition:background .15s;
+                "
+                                 onmouseover="this.style.background='#fafafa'"
+                                 onmouseout="this.style.background='#fff'">
+
+                                <!-- NOM + NOTE -->
+                                <div style="display:flex;justify-content:space-between;align-items:center;">
+
+                                    <p style="font-weight:600;font-size:13px;color:#111;">
+                                        <?= htmlspecialchars($a->getPrenom() . ' ' . $a->getNom()) ?>
+                                    </p>
+
+                                    <div>
+                                        <?php for ($i = 1; $i <= 5; $i++): ?>
+                                            <span style="
+                                                    font-size:1rem;
+                                                    color: <?= $i <= $a->getNote() ? '#facc15' : '#e5e7eb' ?>;
+                                                    ">★</span>
+                                        <?php endfor; ?>
+                                    </div>
+                                </div>
+
+                                <!-- ANNONCE -->
+                                <p style="
+                        font-size:12px;
+                        color:#6b7280;
+                        margin-top:2px;
+                    ">
+                                    Sur l’annonce :
+                                    <span style="color:#0056b3;font-weight:500;">
+                            <?= htmlspecialchars($a->getAnnonceTitle()) ?>
+                        </span>
+                                </p>
+
+                                <!-- COMMENTAIRE -->
+                                <?php if ($a->getCommentaire()): ?>
+                                    <p style="
+                            margin-top:6px;
+                            font-size:13px;
+                            color:#374151;
+                            line-height:1.4;
+                        ">
+                                        <?= nl2br(htmlspecialchars($a->getCommentaire())) ?>
+                                    </p>
+                                <?php endif; ?>
+
+                            </div>
+
+                        <?php endforeach; ?>
+
+                    <?php else: ?>
+
+                        <!-- EMPTY -->
+                        <div style="text-align:center;padding:40px 0;color:#9ca3af;">
+                            <i class="fa-solid fa-star" style="font-size:2.5rem;display:block;margin-bottom:12px;opacity:.4;"></i>
+                            <p style="font-size:13px;">Aucun avis reçu pour le moment.</p>
+                        </div>
+
+                    <?php endif; ?>
+
+                </div>
+            </div>
         </div>
 
         <!-- Colonne droite : annonces -->

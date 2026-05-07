@@ -3,7 +3,7 @@ require_once __DIR__ . '/../model/annonce.php';
 require_once __DIR__ . '/../../PgSQL/database.php';
 
 class AnnonceService{
-    private static array $types = ['vente', 'don', 'location'];
+    private static array $types = ['vente', 'don', 'location','troc'];
     private static array $statuses = ['draft', 'active', 'vendu', 'expire', 'archive'];
 
     //add
@@ -134,8 +134,49 @@ class AnnonceService{
     }
     //GetByCategory
     public static function getByCategorieId($categorieId){
-        $rq= "SELECT * FROM annonces WHERE categorie_id = :categorie_id ORDER BY created_at LIMIT 10";
+        $rq= "SELECT * FROM annonces WHERE categorie_id = :categorie_id AND status = 'active' ORDER BY created_at LIMIT 10";
         $tab["categorie_id"] = $categorieId;
         return Database::query($rq, "Annonce", $tab);
+    }
+    //Filtres
+    public static function filter($filters = [])
+    {
+        $sql = "SELECT * FROM annonces WHERE status = 'active'";
+        $params = [];
+
+        // filtre catégorie
+        if (!empty($filters['cat_id'])) {
+            $sql .= " AND categorie_id = :cat_id";
+            $params['cat_id'] = $filters['cat_id'];
+        }
+
+        // filtre recherche
+        if (!empty($filters['search'])) {
+            $sql .= " AND (title LIKE :search OR description LIKE :search)";
+            $params['search'] = '%' . $filters['search'] . '%';
+        }
+
+        // filtre prix min
+        if (!empty($filters['min_price'])) {
+            $sql .= " AND price >= :min_price";
+            $params['min_price'] = $filters['min_price'];
+        }
+
+        // filtre prix max
+        if (!empty($filters['max_price'])) {
+            $sql .= " AND price <= :max_price";
+            $params['max_price'] = $filters['max_price'];
+        }
+
+        // don
+        if (!empty($filters['type'])) {
+            $sql .= " AND type = :type";
+            $params['type'] = $filters['type'];
+        }
+
+        // tri (optionnel)
+        $sql .= " ORDER BY created_at DESC";
+
+        return Database::query($sql, "Annonce", $params);
     }
 }

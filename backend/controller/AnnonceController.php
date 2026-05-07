@@ -225,4 +225,51 @@ class AnnonceController extends BaseController {
         $annonces = FavoriService::getByUser($userId);
         $this->render('annonce/favoris', ['annonces' => $annonces]);
     }
+
+    //index
+    public function index(){
+        $filters = [
+            'cat_id'    => $this->input('cat_id') ?? null,
+            'search'    => $this->input('search') ?? null,
+            'min_price' => $this->input('min_price') ?? null,
+            'max_price' => $this->input('max_price')?? null,
+            'type' => $this->input('type')?? null,
+        ];
+
+        $annonces = AnnonceService::filter($filters);
+
+        $covers=[];
+        foreach ($annonces as $annonce) {
+            $covers [$annonce->getId()] = PhotoService::getCover($annonce->getId());
+        }
+
+        $currentCat = null;
+        if (!empty($filters['cat_id'])) {
+            $categories = $GLOBALS['nav_categories'] ?? [];
+            foreach ($categories as $parent) {
+                // C'est un parent
+                if ((int) $parent['id'] === (int) $filters['cat_id']) {
+                    $currentCat = $parent;
+                    break;
+                }
+                // C'est un enfant
+                foreach ($parent['enfants'] ?? [] as $enfant) {
+                    if ((int) $enfant['id'] === (int) $filters['cat_id']) {
+                        $currentCat = array_merge($enfant, ['parent' => [
+                            'id'  => $parent['id'],
+                            'nom' => $parent['nom'],
+                        ]]);
+                        break 2;
+                    }
+                }
+            }
+        }
+
+        $this->render('annonce/index', [
+            'annonces'   => $annonces,
+            'covers'     => $covers,
+            'filters'    => $filters,
+            'currentCat' => $currentCat,
+        ]);
+    }
 }

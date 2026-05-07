@@ -66,7 +66,7 @@
                     <select name="type" id="type-select" required
                             class="w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-blue-500">
 
-                        <?php foreach (['vente','don','location'] as $type): ?>
+                        <?php foreach (['vente','don','location','troc'] as $type): ?>
                             <option value="<?= $type ?>"
                                     <?= $annonce->getType() === $type ? 'selected' : '' ?>>
                                 <?= ucfirst($type) ?>
@@ -232,7 +232,7 @@
 <script>
     document.getElementById('type-select').addEventListener('change', function () {
         document.getElementById('price-block').style.display =
-            this.value === 'don' ? 'none' : 'block';
+            this.value === 'don' || this.value === 'troc' ? 'none' : 'block';
     });
         const dropZone = document.getElementById('drop-zone');
 

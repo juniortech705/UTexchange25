@@ -42,6 +42,7 @@ $router->post('/categories/activate/{id}', 'CategorieController@activate', ['aut
 $router->post('/categories/deactivate/{id}', 'CategorieController@deactivate', ['auth', 'admin']);
 
 //Gestion des annonce
+$router->get('/annonces', 'AnnonceController@index', []);
 $router->get('/myAnnonces', 'AnnonceController@myAnnonces', ['auth']);
 $router->get('/annonce/create', 'AnnonceController@addForm', ['auth']);
 $router->post('/annonce/create', 'AnnonceController@add', ['auth', 'csrf']);
@@ -76,6 +77,7 @@ $router->post('/messages/update/{id}', 'ConversationController@update', ['auth',
 $router->get('/conversations/{id}/messages', 'ConversationController@getMessages', ['auth']);
 $router->post('/conversations/{id}/read', 'ConversationController@markAsRead', ['auth', 'csrf']);
 $router->get('/messages/unread-count', 'ConversationController@countUnreadMessages', ['auth']);
+$router->get('/conversations/{id}/messages/sync', 'ConversationController@syncMessages', ['auth']);
 
 //Avis
 $router->post('/conversations/{id}/avis', 'ConversationController@addAvis', ['auth', 'csrf']);

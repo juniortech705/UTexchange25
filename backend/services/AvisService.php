@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../model/avis.php';
+require_once __DIR__ . '/../model/avisWithUser.php';
 require_once __DIR__ . '/../../PgSQL/database.php';
 require_once __DIR__ . '/ConversationService.php';
 
@@ -37,9 +38,21 @@ class AvisService{
     }
     //getByVendeur (les avis qu'on a laissé au vendeur)
     public static function getByVendeur($vendeurId){
-        $rq = "SELECT * FROM avis WHERE vendeur_id = :id ORDER BY created_at DESC";
+        $rq = "
+        SELECT 
+            a.*,
+            u.nom,
+            u.prenom,
+            an.title AS annonce_title
+        FROM avis a
+        JOIN utilisateurs u ON u.id = a.acheteur_id
+        JOIN conversations c ON c.id = a.conversation_id
+        JOIN annonces an ON an.id = c.annonce_id
+        WHERE a.vendeur_id = :vendeur_id
+        ORDER BY a.created_at DESC
+    ";
 
-        return Database::query($rq, 'Avis', ['id' => $vendeurId]);
+        return Database::query($rq, 'AvisWithUser', ['vendeur_id' => $vendeurId]);
     }
     //remove
     public static function delete($id){
@@ -59,4 +72,18 @@ class AvisService{
             'moyenne' => $stm ? (float) $stm->moyenne : 0,
         ];
     }
+    //getByConversation
+    public static function getByConversationId($conversationId){
+        $rq = "SELECT * FROM avis WHERE conversation_id = :id ORDER BY created_at DESC";
+        $tab['id'] = $conversationId;
+        return Database::find($rq, 'Avis', $tab);
+
+    }
+    //getAll
+    public static function getAll($userId){
+        $rq = "SELECT * FROM avis ORDER BY created_at DESC";
+
+        return Database::query($rq, 'Avis', []);
+    }
+
 }

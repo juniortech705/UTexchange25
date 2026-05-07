@@ -4,6 +4,7 @@ require_once __DIR__ . '/../services/UserService.php';
 require_once __DIR__ . '/../services/RoleService.php';
 require_once __DIR__ . '/../services/AnnonceService.php';
 require_once __DIR__ . '/../services/PhotoService.php';
+require_once __DIR__ . '/../services/AvisService.php';
 class UserController extends BaseController{
     //add
     public function addForm(){
@@ -50,7 +51,12 @@ class UserController extends BaseController{
 
         if ($result) {
             Session::flash('success', 'Utilisateur modifié');
-            $this->redirect('/users');
+
+            if(Session::userRole() == 'administrateur'){
+                $this->redirect('/users');
+            } else {
+                $this->redirect('/users/profil/' . $id);
+            }
         } else {
             Session::flash('error', 'Erreur modification');
             $this->redirect('/users/edit/' . $id);
@@ -81,7 +87,8 @@ class UserController extends BaseController{
     //all
     public function index(){
         $users=UserService::getAll();
-        $this->render('users/index', ['users' => $users]);
+        $roles=RoleService::getAll();
+        $this->render('users/index', ['users' => $users, 'roles' => $roles]);
 
     }
     //show (pour profil)
@@ -89,13 +96,15 @@ class UserController extends BaseController{
         $user=UserService::getById($id);
         $annonces=AnnonceService::getAllByUser($id);
 
+        $avis = AvisService::getByVendeur($id);
+
         $covers = [];
         foreach ($annonces as $a) {
             $covers[$a->getId()] = PhotoService::getCover($a->getId());
         }
         $stats = ['total' => count($annonces)];
 
-        $this->render('users/show', ['user' => $user, 'annonces' => $annonces, 'covers' => $covers, 'stats' => $stats]);
+        $this->render('users/show', ['user' => $user, 'annonces' => $annonces, 'covers' => $covers, 'stats' => $stats, 'avis' => $avis]);
 
     }
     //update password
@@ -112,7 +121,11 @@ class UserController extends BaseController{
 
         if ($result === true) {
             Session::flash('success', 'Mot de passe modifié');
-            $this->redirect('/users/profil/'.$id);
+            if(Session::userRole() == 'administrateur'){
+                $this->redirect('/users');
+            } else {
+                $this->redirect('/users/profil/' . $id);
+            }
         } else {
             Session::flash('error', $result);
             $this->redirect('/users/pass');

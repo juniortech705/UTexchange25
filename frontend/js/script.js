@@ -101,9 +101,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // ── Badge messages non lus ──────────────────────────────
 
     const badge = document.getElementById('unread-badge');
-    /*if (badge) {
+    if (badge) {
         const fetchUnread = () => {
-            fetch('/api/messages/unread-count')
+            fetch('/messages/unread-count')
                 .then(r => r.json())
                 .then(data => {
                     if (data.count > 0) {
@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
         fetchUnread();
         setInterval(fetchUnread, 30000); // toutes les 30s
-    }*/
+    }
 
     // ── Navigation logo ─────────────────────────────────────
 

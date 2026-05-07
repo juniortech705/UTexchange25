@@ -1,13 +1,13 @@
 <?php
 
 class Avis{
-    private $id;
-    private $conversation_id;
-    private $acheteur_id;
-    private $vendeur_id;
-    private $note;
-    private $commentaire;
-    private $created_at;
+    protected $id;
+    protected $conversation_id;
+    protected $acheteur_id;
+    protected $vendeur_id;
+    protected $note;
+    protected $commentaire;
+    protected $created_at;
 
     public function getId()
     {

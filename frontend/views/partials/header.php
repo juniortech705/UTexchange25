@@ -18,7 +18,7 @@ $userId     = Session::get('user_id');
                 <i class="fa-solid fa-square-plus"></i>
                 <span>Déposer une annonce</span>
             </a>
-            <form class="search-container" action="" method="GET">
+            <form class="search-container" action="/annonces" method="GET">
                 <input type="text" name="search" placeholder="Rechercher sur UTexchange"
                        value="<?= htmlspecialchars($_GET['search'] ?? '') ?>">
                 <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
