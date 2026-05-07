@@ -96,4 +96,32 @@ class Database
             return false;
         }
     }
+
+    //recuperer tes donnees sans classe, utile pour nos statistiques
+    public static function fetch($rq, $tab = [])
+    {
+        try {
+            $stm = self::getConx()->prepare($rq);
+            $stm->execute($tab);
+
+            return $stm->fetch(PDO::FETCH_ASSOC);
+
+        } catch (PDOException $e) {
+            error_log($e->getMessage());
+            return null;
+        }
+    }
+    public static function fetchAllAssoc($rq, $tab = [])
+    {
+        try {
+            $stm = self::getConx()->prepare($rq);
+            $stm->execute($tab);
+
+            return $stm->fetchAll(PDO::FETCH_ASSOC);
+
+        } catch (PDOException $e) {
+            error_log($e->getMessage());
+            return [];
+        }
+    }
 }

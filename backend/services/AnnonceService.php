@@ -4,7 +4,7 @@ require_once __DIR__ . '/../../PgSQL/database.php';
 
 class AnnonceService{
     private static array $types = ['vente', 'don', 'location','troc'];
-    private static array $statuses = ['draft', 'active', 'vendu', 'expire', 'archive'];
+    private static array $statuses = ['draft', 'active', 'vendu', 'expire', 'signale'];
 
     //add
     public static function add($data){
@@ -75,7 +75,7 @@ class AnnonceService{
         $tab["id"] = $id;
         return Database::execute($rq, $tab);
     }
-    //all
+    //all pour home
     public static function getAll(){
         $rq= "SELECT * FROM annonces WHERE status = 'active'";
         return Database::query($rq, "Annonce");
@@ -178,5 +178,16 @@ class AnnonceService{
         $sql .= " ORDER BY created_at DESC";
 
         return Database::query($sql, "Annonce", $params);
+    }
+    //getAll pour admin
+    public static function getByAdmin(){
+        $rq= "SELECT * FROM annonces ORDER BY created_at DESC";
+        return Database::query($rq, "Annonce",[]);
+    }
+    //reportAnnonce
+    public static function reportAnnonce($id){
+        $rq="UPDATE annonces SET status = 'signale' WHERE id = :id";
+        $tab["id"] = $id;
+        return Database::execute($rq, $tab);
     }
 }

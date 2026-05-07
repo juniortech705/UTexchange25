@@ -8,6 +8,7 @@ class Avis{
     protected $note;
     protected $commentaire;
     protected $created_at;
+    protected $is_active;
 
     public function getId()
     {
@@ -42,5 +43,10 @@ class Avis{
     public function getCreatedAt()
     {
         return $this->created_at;
+    }
+
+    public function getIsActive()
+    {
+        return $this->is_active;
     }
 }

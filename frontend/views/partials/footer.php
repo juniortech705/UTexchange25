@@ -27,6 +27,6 @@
         </div>
     </div>
     <div class="footer-bottom">
-        <p>&copy; <?= date('Y') ?> UTexchange — Réseau des Universités de Technologie (UTC, UTT, UTBM)</p>
+        <p>&copy; <?= date('Y') ?> UTexchange — Réseau des Universités de Technologie (UTC, UTT, UTBM, UTTOP)</p>
     </div>
 </footer>

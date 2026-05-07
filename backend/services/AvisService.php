@@ -48,7 +48,7 @@ class AvisService{
         JOIN utilisateurs u ON u.id = a.acheteur_id
         JOIN conversations c ON c.id = a.conversation_id
         JOIN annonces an ON an.id = c.annonce_id
-        WHERE a.vendeur_id = :vendeur_id
+        WHERE a.vendeur_id = :vendeur_id AND a.is_active = TRUE
         ORDER BY a.created_at DESC
     ";
 
@@ -74,16 +74,22 @@ class AvisService{
     }
     //getByConversation
     public static function getByConversationId($conversationId){
-        $rq = "SELECT * FROM avis WHERE conversation_id = :id ORDER BY created_at DESC";
+        $rq = "SELECT * FROM avis WHERE conversation_id = :id AND is_active=TRUE ORDER BY created_at DESC";
         $tab['id'] = $conversationId;
         return Database::find($rq, 'Avis', $tab);
 
     }
-    //getAll
-    public static function getAll($userId){
+    //getAll (pour admin)
+    public static function getAll(){
         $rq = "SELECT * FROM avis ORDER BY created_at DESC";
 
         return Database::query($rq, 'Avis', []);
+    }
+
+    //deactivate
+    public static function deactivate($id){
+        $rq = "UPDATE avis SET is_active = FALSE WHERE id = :id";
+        return Database::execute($rq, ['id' => $id]);
     }
 
 }

@@ -3,6 +3,7 @@ require_once __DIR__ . '/BaseController.php';
 require_once __DIR__ . '/../services/AnnonceService.php';
 require_once __DIR__ . '/../services/PhotoService.php';
 require_once __DIR__ . '/../services/CategorieService.php';
+require_once __DIR__ . '/../services/StatistiqueService.php';
 class HomeController extends BaseController {
     //page d'accueil
     public function index() {
@@ -27,7 +28,17 @@ class HomeController extends BaseController {
     //Dashboard
     public function dashboard() {
         $userId = Session::userId();
-        $this->render('dashboard',['userId' => $userId]); //test
+        $nbUser= StatistiqueService::getNbUsers();
+        $nbConv= StatistiqueService::getNbConversations();
+        $nbAvis= StatistiqueService::getNbAvis();
+        $nbAnnonces= StatistiqueService::getNbAnnonces();
+        $this->render('dashboard',[
+            'userId' => $userId,
+            'nbUser' => (int) $nbUser,
+            'nbConv' => (int) $nbConv,
+            'nbAvis' => (int) $nbAvis,
+            'nbAnnonces' => (int) $nbAnnonces
+        ]);
     }
 
 }

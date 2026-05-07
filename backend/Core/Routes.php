@@ -82,3 +82,10 @@ $router->get('/conversations/{id}/messages/sync', 'ConversationController@syncMe
 //Avis
 $router->post('/conversations/{id}/avis', 'ConversationController@addAvis', ['auth', 'csrf']);
 $router->post('/avis/delete/{id}', 'ConversationController@deleteAvis', ['auth', 'csrf']);
+
+//Admin
+$router->get('/adAnnonces', 'AdminController@allAnnonces', ['auth', 'admin']);
+$router->get('/adAvis', 'AdminController@allAvis', ['auth', 'admin']);
+$router->get('/adStats', 'AdminController@stats', ['auth', 'admin']);
+$router->post('/ad/avis/deactivate', 'AdminController@deactivate', ['auth', 'admin']);
+$router->post('/ad/annonce/report', 'AdminController@report', ['auth', 'admin']);

@@ -31,10 +31,10 @@
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
         <?php
         $cards = [
-                ['label' => 'Utilisateurs',  'value' => 0,         'icon' => 'fa-users',       'color' => '#0056b3', 'bg' => '#eff6ff'],
-                ['label' => 'Annonces',      'value' => 0,      'icon' => 'fa-tag',         'color' => '#16a34a', 'bg' => '#dcfce7'],
-                ['label' => 'Conversations', 'value' => 0, 'icon' => 'fa-comments',    'color' => '#7c3aed', 'bg' => '#ede9fe'],
-                ['label' => 'Avis',          'value' => 0,          'icon' => 'fa-star',        'color' => '#f59e0b', 'bg' => '#fef9c3'],
+                ['label' => 'Utilisateurs',  'value' => $nbUser,         'icon' => 'fa-users',       'color' => '#0056b3', 'bg' => '#eff6ff'],
+                ['label' => 'Annonces',      'value' => $nbAnnonces,      'icon' => 'fa-tag',         'color' => '#16a34a', 'bg' => '#dcfce7'],
+                ['label' => 'Conversations', 'value' => $nbConv, 'icon' => 'fa-comments',    'color' => '#7c3aed', 'bg' => '#ede9fe'],
+                ['label' => 'Avis',          'value' => $nbAvis,          'icon' => 'fa-star',        'color' => '#f59e0b', 'bg' => '#fef9c3'],
         ];
         foreach ($cards as $card): ?>
             <div class="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm">
@@ -56,10 +56,10 @@
         <?php
         $links = [
                 ['href' => '/users',     'icon' => 'fa-users',           'label' => 'Gérer les utilisateurs', 'color' => '#0056b3'],
-                ['href' => '/annonce',  'icon' => 'fa-tag',             'label' => 'Gérer les annonce',     'color' => '#16a34a'],
-                ['href' => '/categories', 'icon' => 'fa-folder',  'label' => 'Catégories',             'color' => '#7c3aed'],
-                ['href' => '/admin/avis','icon' => 'fa-star',            'label' => 'Modérer les avis',       'color' => '#f59e0b'],
-                ['href' => '/admin/stats','icon' => 'fa-chart-bar',      'label' => 'Statistiques',           'color' => '#0891b2'],
+                ['href' => '/adAnnonces',  'icon' => 'fa-tag',             'label' => 'Gérer les annonces',     'color' => '#16a34a'],
+                ['href' => '/categories', 'icon' => 'fa-folder',  'label' => ' Gérer les catégories',             'color' => '#7c3aed'],
+                ['href' => '/adAvis','icon' => 'fa-star',            'label' => 'Gérer les avis',       'color' => '#f59e0b'],
+                ['href' => '/adStats','icon' => 'fa-chart-bar',      'label' => 'Statistiques',           'color' => '#0891b2'],
         ];
         foreach ($links as $link): ?>
             <a href="<?= $link['href'] ?>"
