@@ -29,4 +29,5 @@
     <div class="footer-bottom">
         <p>&copy; <?= date('Y') ?> UTexchange — Réseau des Universités de Technologie (UTC, UTT, UTBM, UTTOP)</p>
     </div>
+    <?php include_once 'chatbot-nlp/chatbot.php'; ?>
 </footer>
