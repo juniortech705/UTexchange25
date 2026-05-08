@@ -87,5 +87,6 @@ $router->post('/avis/delete/{id}', 'ConversationController@deleteAvis', ['auth',
 $router->get('/adAnnonces', 'AdminController@allAnnonces', ['auth', 'admin']);
 $router->get('/adAvis', 'AdminController@allAvis', ['auth', 'admin']);
 $router->get('/adStats', 'AdminController@stats', ['auth', 'admin']);
-$router->post('/ad/avis/deactivate', 'AdminController@deactivate', ['auth', 'admin']);
-$router->post('/ad/annonce/report', 'AdminController@report', ['auth', 'admin']);
+$router->post('/ad/avis/deactivate/{id}', 'AdminController@deactivate', ['auth', 'admin', 'csrf']);
+$router->post('/ad/avis/activate/{id}', 'AdminController@activate', ['auth', 'admin', 'csrf']);
+$router->post('/ad/annonce/report/{id}', 'AdminController@report', ['auth', 'admin', 'csrf']);

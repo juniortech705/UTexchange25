@@ -380,6 +380,7 @@
     window.CONV_ID     = <?= $conversation->getId() ?>;
     window.USER_ID     = <?= $userId ?>;
     window.LAST_MSG_ID = <?= $lastMessageId ?>;
+    window.IS_TERMINATED = <?= $isTerminee ? 'true' : 'false' ?>;
 
     // ── Notation étoiles ─────────────────────────────────
     let currentNote = 0;

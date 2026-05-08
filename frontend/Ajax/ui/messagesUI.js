@@ -119,12 +119,18 @@ const MessagesUI = (() => {
                 <div class="msg-text" id="msg-text-${msg.id}">
                     ${escapeHtml(msg.contenu)}
                 </div>
-                <span class="msg-time">${time}</span>
+                <div class="msg-meta">
+                    <span class="msg-time">${time}</span>
+                    ${isMine ? `<span class="msg-read-receipt msg-read-receipt--${msg.is_read ? 'read' : 'sent'}">
+                        <i class="fa-solid ${msg.is_read ? 'fa-check-double' : 'fa-check'}"></i>
+                    </span>` : ''}
+                </div>
             </div>`;
     }
 
     //Édition inline du message
     function startEdit(msgId) {
+        if (window.IS_TERMINATED) return;
         isEditing = true;
 
         if (editingId) cancelEdit(editingId);
@@ -202,6 +208,7 @@ const MessagesUI = (() => {
 
     //Suppression
     function deleteMsg(msgId) {
+        if (window.IS_TERMINATED) return;
         if (!confirm('Supprimer ce message ?')) return;
 
         MessagesService.delete(msgId)

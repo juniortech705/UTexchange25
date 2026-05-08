@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../model/avis.php';
 require_once __DIR__ . '/../model/avisWithUser.php';
+require_once __DIR__ . '/../model/avisAdmin.php';
 require_once __DIR__ . '/../../PgSQL/database.php';
 require_once __DIR__ . '/ConversationService.php';
 
@@ -80,15 +81,34 @@ class AvisService{
 
     }
     //getAll (pour admin)
-    public static function getAll(){
-        $rq = "SELECT * FROM avis ORDER BY created_at DESC";
+    public static function getAll()
+    {
+        $rq = "
+        SELECT
+            a.*,
+            acheteur.nom AS acheteur_nom,
+            acheteur.prenom AS acheteur_prenom,
+            vendeur.nom AS vendeur_nom,
+            vendeur.prenom AS vendeur_prenom,
+            an.title AS annonce_title
+        FROM avis a
+        JOIN utilisateurs acheteur ON acheteur.id = a.acheteur_id
+        JOIN utilisateurs vendeur ON vendeur.id = a.vendeur_id
+        JOIN conversations c ON c.id = a.conversation_id
+        JOIN annonces an ON an.id = c.annonce_id
+        ORDER BY a.created_at DESC
+    ";
 
-        return Database::query($rq, 'Avis', []);
+        return Database::query($rq, 'AvisAdmin');
     }
-
     //deactivate
     public static function deactivate($id){
         $rq = "UPDATE avis SET is_active = FALSE WHERE id = :id";
+        return Database::execute($rq, ['id' => $id]);
+    }
+    //activate
+    public static function activate($id){
+        $rq = "UPDATE avis SET is_active = TRUE WHERE id = :id";
         return Database::execute($rq, ['id' => $id]);
     }
 

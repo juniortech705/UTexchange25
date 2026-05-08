@@ -181,12 +181,12 @@ class AnnonceService{
     }
     //getAll pour admin
     public static function getByAdmin(){
-        $rq= "SELECT * FROM annonces ORDER BY created_at DESC";
+        $rq= "SELECT * FROM annonces  ORDER BY created_at DESC ";
         return Database::query($rq, "Annonce",[]);
     }
     //reportAnnonce
     public static function reportAnnonce($id){
-        $rq="UPDATE annonces SET status = 'signale' WHERE id = :id";
+        $rq="UPDATE annonces SET status = 'signale' WHERE id = :id AND status = 'active'";
         $tab["id"] = $id;
         return Database::execute($rq, $tab);
     }

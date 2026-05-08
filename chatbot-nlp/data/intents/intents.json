@@ -154,8 +154,8 @@
         "Info sur UTexchange"
       ],
       "responses": [
-        "UTexchange est le sites de petites annonces du groupe des UT, notamment de l'UTBM  : il s'y passe des trocs, des ventes, des annonces et opportunités entre étudiants et aussi avec l'administration de l'UTBM. Nous somme en collaboration avec l'AE et Le service de la vie étudiante de l'UTBM. Que veux-tu savoir exactement ?",
-        "UTexchange est une plateforme d'échange un peu comme leboncoin, mais uniquement circonscrit à l'UTBM. Je peux t'en dire plus si tu as des questions précises !",
+        "UTexchange est le sites de petites annonces du groupe des UT : il s'y passe des trocs, des ventes, des annonces et opportunités entre étudiants et aussi avec l'administration de l'UTBM. Nous somme en collaboration avec l'AE et Le service de la vie étudiante de l'UTBM. Que veux-tu savoir exactement ?",
+        "UTexchange est une plateforme d'échange un peu comme leboncoin, mais uniquement circonscrit au groupe UT. Je peux t'en dire plus si tu as des questions précises !",
         "C'est la plateforme sur laquelle tu te trouves ! Pose-moi des questions spécifiques."
       ]
     },
@@ -232,18 +232,18 @@
             "modifier mon profil"
       ],
       "responses":[
-         "pour modifier votre, allez sur votre icone -> modifier"
+         "Il te suffit de cliquer sur Mon compte "
       ]
     },
 
     {
       "tag": "Michele",
       "patterns":[
-        "pourquoi on t'appel michele?", "pourquoi michele ?", "qui t'a donné ce nom ", "pourquoi ce nom ?",
+        "pourquoi on t'appelle michele?", "pourquoi michele ?", "qui t'a donné ce nom ", "pourquoi ce nom ?",
         "c'est quoi ce nom, michele ?"
       ],
       "responses":[
-        "Michele fait partie des developpeu(ses)rs de ce site, \n C'est la cruch de mon créateur 😊"
+        "Michele fait partie des fondateurs de ce projet, et c'est la seule fille du groupe, alors on a décidé de nommer le chatbot Michele en son honneur !"
       ]
     },
 
@@ -254,7 +254,7 @@
       "qui sont les propriétaire de ce projet ", "qui on developpé utexchange ?", "qui sont les membre de ce projet", "quels sont les membre du groupe"
      ],
      "responses":[
-      "Les membres de ce groupe sont :\n -Junior Angambun,\n -Andy Daryl DEDZO TSAPI,\n -Michele ANDE TSHINDA,\n -Jordan SODJINOU"
+      "Les membres de ce groupe sont :\n -Junior Angambun,\n -Andy Daryl DEDZO TSAPI,\n -Michele ANDE TCHINDA,\n -Jordan SODJINOU"
      ]
 
     },
@@ -270,7 +270,7 @@
     },
 
     {
-      "tag": "cathegories",
+      "tag": "categories",
       "patterns" : [
         "quelles sont les différentes catégories ?",
         "les catégories",
@@ -278,7 +278,7 @@
         "catégorie"
       ],
       "responses" :[
-        "Les catégories sont : Ventes, Troc, Location et Don \n Les sous cathégories sont: Livres, Electronique, vêtements , Electroménagers"
+        "Les catégories sont visibles sur la page d'accueil, mais je peux énumérer quelques unes :\n -\n -Troc\n -Opportunités\n -Services\n -Autres"
        ]
     },
     {
@@ -291,7 +291,7 @@
             "Université de Technologie de Belfort Montbéliard","universite de technologie de Belfort-Montbeliard",
             "université de technologie de Belfort-Montbéliard","c'est quoi l'université de technologie de Belfort-Montbéliard ?"
       ],
-      "responses": ["L'UTBM est une école d'ingénieur du groupe des UT constituée de trois campus:\n-Sevenan: Pour le TC et mécanique, \n-Belfort: Pour l'informatique et l'énergie, \n-Montbéliard: Pour l'ergonomie et le design"]
+      "responses": ["L'UTBM est une école d'ingénieur du groupe des UT constituée de trois campus:\n-Sevenans: Pour le TC et mécanique, \n-Belfort: Pour l'informatique et l'énergie, \n-Montbéliard: Pour l'ergonomie et le design"]
     }
   ]
 }
