@@ -9,80 +9,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <link rel="stylesheet" href="/frontend/css/style.css">
+    <link rel="stylesheet" href="/frontend/css/admin.css">
     <link rel="icon" type="image/png" href="/Images/favicon_utexchange.png">
-    <style>
-        body { font-family: 'Poppins', sans-serif; }
-
-        /* ── KPI cards ── */
-        .kpi-card {
-            background: #fff;
-            border: 1px solid #f0f0f0;
-            border-radius: 16px;
-            padding: 22px 24px;
-            box-shadow: 0 2px 10px rgba(0,0,0,.04);
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        .kpi-icon {
-            width: 44px; height: 44px; border-radius: 12px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.1rem;
-        }
-        .kpi-value {
-            font-family: 'Poppins', sans-serif;
-            font-size: 2rem; font-weight: 900; color: #111; line-height: 1;
-        }
-        .kpi-label { font-size: 12px; color: #9ca3af; font-weight: 500; }
-        .kpi-sub { font-size: 11px; color: #6b7280; display: flex; align-items: center; gap: 4px; }
-
-        /* ── Chart cards ── */
-        .chart-card {
-            background: #fff;
-            border: 1px solid #f0f0f0;
-            border-radius: 16px;
-            padding: 22px 24px;
-            box-shadow: 0 2px 10px rgba(0,0,0,.04);
-        }
-        .chart-title {
-            font-size: .95rem; font-weight: 700; color: #111; margin-bottom: 18px;
-            display: flex; align-items: center; gap: 8px;
-        }
-        .chart-title i { color: #0056b3; font-size: .9rem; }
-
-        /* ── Top vendeurs ── */
-        .top-row {
-            display: flex; align-items: center; gap: 12px;
-            padding: 10px 0; border-bottom: 1px solid #f3f4f6;
-        }
-        .top-row:last-child { border-bottom: none; }
-        .top-avatar {
-            width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
-            background: linear-gradient(135deg, #0056b3, #004a99);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 12px; font-weight: 700; color: white;
-        }
-        .rank-badge {
-            width: 22px; height: 22px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 10px; font-weight: 700; flex-shrink: 0;
-        }
-
-        /* ── Dernières annonces ── */
-        .latest-row {
-            display: flex; align-items: center; gap: 12px;
-            padding: 10px 0; border-bottom: 1px solid #f3f4f6;
-            text-decoration: none; color: inherit;
-            transition: background .15s; border-radius: 6px;
-        }
-        .latest-row:last-child { border-bottom: none; }
-        .latest-row:hover { background: #f8faff; padding-left: 6px; }
-        .latest-thumb {
-            width: 44px; height: 44px; border-radius: 8px;
-            background: #f4f6f8; overflow: hidden; flex-shrink: 0;
-        }
-        .latest-thumb img { width:100%;height:100%;object-fit:cover; }
-    </style>
+   
 </head>
 <body class="bg-gray-50 min-h-screen flex flex-col">
 

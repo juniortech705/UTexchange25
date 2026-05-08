@@ -8,82 +8,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="/frontend/css/style.css">
+    <link rel="stylesheet" href="/frontend/css/annonces.css">
     <link rel="stylesheet" href="/frontend/css/modals.css">
     <link rel="icon" type="image/png" href="/Images/favicon_utexchange.png">
-    <style>
-        body { font-family: 'Poppins', sans-serif; }
-        .my-card {
-            background: #fff;
-            border-radius: 14px;
-            overflow: hidden;
-            border: 1px solid #f0f0f0;
-            transition: box-shadow .2s, border-color .2s;
-            display: flex;
-            align-items: stretch;
-        }
-        .my-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,.08); border-color: #e0eaf5; }
-        .my-card__img {
-            width: 120px;
-            flex-shrink: 0;
-            background: #f4f6f8;
-            position: relative;
-            overflow: hidden;
-        }
-        .my-card__img img { width:100%;height:100%;object-fit:cover;transition:transform .3s; }
-        .my-card:hover .my-card__img img { transform: scale(1.05); }
-        .my-card__img-placeholder {
-            width:100%;height:100%;display:flex;align-items:center;justify-content:center;
-            color:#d1d5db;font-size:1.8rem;
-        }
-        .my-card__body {
-            flex: 1;
-            padding: 14px 16px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            min-width: 0;
-        }
-        .my-card__title {
-            font-size: 14px; font-weight: 700; color: #111;
-            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-            margin-bottom: 4px;
-        }
-        .my-card__price {
-            font-size: 16px; font-weight: 900; color: #0056b3;
-        }
-        .my-card__price--free { color: #059669; }
-        .my-card__meta { font-size: 11px; color: #9ca3af; display:flex;gap:10px;flex-wrap:wrap;margin-top:4px; }
-        .my-card__meta i { font-size: 10px; }
-        .my-card__actions {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            justify-content: space-between;
-            padding: 14px 14px 14px 8px;
-            gap: 8px;
-            flex-shrink: 0;
-        }
-
-        /* Badge statut */
-        .status-badge {
-            font-size: 10px; font-weight: 700; padding: 3px 9px;
-            border-radius: 20px; white-space: nowrap;
-        }
-        .s-active  { background:#dcfce7;color:#16a34a; }
-        .s-draft   { background:#f3f4f6;color:#6b7280; }
-        .s-vendu   { background:#eff6ff;color:#1d4ed8; }
-        .s-expire  { background:#fef9c3;color:#92400e; }
-        .s-archive { background:#fee2e2;color:#dc2626; }
-
-        .icon-btn {
-            width:32px;height:32px;border-radius:8px;border:none;cursor:pointer;
-            display:flex;align-items:center;justify-content:center;font-size:13px;
-            transition:background .15s,color .15s;background:transparent;
-        }
-        .icon-btn--view   { color:#9ca3af; } .icon-btn--view:hover   { background:#eff6ff;color:#0056b3; }
-        .icon-btn--edit   { color:#9ca3af; } .icon-btn--edit:hover   { background:#fffbeb;color:#d97706; }
-        .icon-btn--delete { color:#9ca3af; } .icon-btn--delete:hover { background:#fef2f2;color:#dc2626; }
-    </style>
+    
 </head>
 <body class="bg-gray-50 min-h-screen flex flex-col">
 

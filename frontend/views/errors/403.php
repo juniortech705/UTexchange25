@@ -8,38 +8,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="/frontend/css/style.css">
+    <link rel="stylesheet" href="/frontend/css/error.css">
     <link rel="icon" type="image/png" href="/Images/favicon_utexchange.png">
-    <style>
-        body { font-family: 'Poppins', sans-serif; }
-        .error-banner {
-            background: linear-gradient(135deg, #0056b3 0%, #004a99 100%);
-            border-radius: 20px;
-            padding: 60px 40px;
-            color: white;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        .error-banner::before {
-            content: '';
-            position: absolute; top: -60px; right: -60px;
-            width: 260px; height: 260px;
-            background: rgba(255,255,255,.05); border-radius: 50%;
-        }
-        .error-banner::after {
-            content: '';
-            position: absolute; bottom: -80px; left: 40px;
-            width: 200px; height: 200px;
-            background: rgba(255,255,255,.04); border-radius: 50%;
-        }
-        .error-code {
-            font-size: 6rem; font-weight: 900; opacity: .15; line-height: 1;
-            position: absolute; top: 16px; right: 32px;
-            font-family: 'Poppins', sans-serif;
-        }
-    </style>
+    
 </head>
 <body class="bg-gray-50 min-h-screen flex flex-col">
 

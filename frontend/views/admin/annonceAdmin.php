@@ -9,20 +9,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="/frontend/css/style.css">
     <link rel="stylesheet" href="/frontend/css/modals.css">
+    <link rel="stylesheet" href="/frontend/css/admin.css">
     <link rel="icon" type="image/png" href="/Images/favicon_utexchange.png">
-    <style>
-        body { font-family: 'Poppins', sans-serif; }
-        .pill { display:inline-flex;align-items:center;padding:3px 9px;border-radius:20px;font-size:10px;font-weight:700;white-space:nowrap; }
-        .pill-active  { background:#dcfce7;color:#16a34a; }
-        .pill-draft   { background:#f3f4f6;color:#6b7280; }
-        .pill-vendu   { background:#eff6ff;color:#1d4ed8; }
-        .pill-expire  { background:#fef9c3;color:#92400e; }
-        .pill-vente    { background:#eff6ff;color:#1d4ed8; }
-        .pill-don      { background:#d1fae5;color:#065f46; }
-        .pill-location { background:#ede9fe;color:#4c1d95; }
-        .pill-troc     { background:#fef9c3;color:#92400e; }
-        .pill-signale  { background:#fee2e2;color:#dc2626; }
-    </style>
 </head>
 <body class="bg-gray-50 min-h-screen flex flex-col">
 

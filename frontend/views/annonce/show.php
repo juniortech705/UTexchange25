@@ -10,62 +10,7 @@
     <link rel="stylesheet" href="/frontend/css/style.css">
     <link rel="stylesheet" href="/frontend/css/modals.css">
     <link rel="icon" type="image/png" href="/Images/favicon_utexchange.png">
-    <style>
-        body { font-family: 'Poppins', sans-serif; }
-        .gallery-main { border-radius: 14px; overflow: hidden; height: 400px; background: #f4f6f8; position: relative; }
-        .gallery-main img { width:100%;height:100%;object-fit:cover;transition:opacity .2s; }
-        .gallery-thumb { width:72px;height:72px;border-radius:9px;overflow:hidden;flex-shrink:0;border:2px solid #e5e7eb;cursor:pointer;opacity:.7;transition:border-color .15s,opacity .15s; }
-        .gallery-thumb.active, .gallery-thumb:hover { border-color:#0056b3;opacity:1; }
-        .gallery-thumb img { width:100%;height:100%;object-fit:cover; }
-        .price-big { font-size:2rem;font-weight:900;color:#0056b3;line-height:1; }
-        .price-big--free { color:#059669; }
-        .detail-pill { display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600; }
-        .pill-vente    { background:#eff6ff;color:#1d4ed8; }
-        .pill-don      { background:#d1fae5;color:#065f46; }
-        .pill-location { background:#ede9fe;color:#4c1d95; }
-        .pill-active   { background:#dcfce7;color:#16a34a; }
-        .pill-draft    { background:#f3f4f6;color:#6b7280; }
-        .pill-vendu    { background:#eff6ff;color:#1d4ed8; }
-        .pill-expire   { background:#fef9c3;color:#92400e; }
-        .pill-archive  { background:#fee2e2;color:#dc2626; }
-        .sidebar-box { background:#fff;border:1px solid #f0f0f0;border-radius:14px;padding:20px;box-shadow:0 2px 12px rgba(0,0,0,.04); }
-        .info-row { display:flex;align-items:center;gap:8px;padding:8px 0;font-size:13px;color:#6b7280;border-bottom:1px solid #f3f4f6; }
-        .info-row:last-child { border-bottom:none; }
-        .info-row i { width:15px;text-align:center;font-size:11px;color:#9ca3af; }
-        .info-row strong { margin-left:auto;color:#111;font-weight:600;font-size:13px; }
-        .btn-action { width:100%;padding:12px;border-radius:11px;border:none;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;transition:opacity .15s,transform .1s;font-family:'Poppins',sans-serif; }
-        .btn-action:hover { opacity:.88; }
-        .btn-action:active { transform:scale(.98); }
-        .btn-action--primary { background:#0056b3;color:white; }
-        .btn-action--outline { background:transparent;color:#0056b3;border:2px solid #0056b3 !important; }
-        .btn-action--outline:hover { background:#eff6ff;opacity:1; }
-        .btn-action--danger { background:transparent;color:#dc2626;border:2px solid #dc2626 !important; }
-        .btn-action--danger:hover { background:#fef2f2;opacity:1; }
-        .btn-action--ghost { background:#f9fafb;color:#374151;border:1.5px solid #e5e7eb !important; }
-        .btn-action--ghost:hover { border-color:#0056b3 !important;color:#0056b3;background:#eff6ff;opacity:1; }
-        .btn-action--disabled { background:#f3f4f6;color:#9ca3af;cursor:not-allowed;border:1.5px solid #e5e7eb !important; }
-        .btn-action--disabled:hover { opacity:1;transform:none; }
-        .seller-avatar { width:44px;height:44px;border-radius:50%;flex-shrink:0;background:linear-gradient(135deg,#0056b3,#004a99);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:white; }
-        .owner-actions { display:flex;flex-direction:column;gap:8px; }
-        .edit-pill-btn { display:inline-flex;align-items:center;gap:5px;cursor:pointer;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:600;border:none;transition:filter .15s; }
-        .edit-pill-btn:hover { filter:brightness(.9); }
-
-        /* ── Bandeau vendu ── */
-        .sold-banner {
-            background: #eff6ff;
-            border: 1.5px solid #bfdbfe;
-            border-radius: 12px;
-            padding: 12px 16px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 13px;
-            font-weight: 600;
-            color: #1d4ed8;
-            margin-bottom: 16px;
-        }
-        .sold-banner i { font-size: 1rem; }
-    </style>
+    
 </head>
 <body class="bg-gray-50 min-h-screen flex flex-col">
 
