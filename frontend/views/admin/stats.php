@@ -9,6 +9,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <link rel="stylesheet" href="/frontend/css/style.css">
+    <link rel="icon" type="image/png" href="/Images/favicon_utexchange.png">
     <style>
         body { font-family: 'Poppins', sans-serif; }
 

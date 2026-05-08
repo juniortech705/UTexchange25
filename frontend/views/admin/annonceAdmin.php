@@ -9,6 +9,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="/frontend/css/style.css">
     <link rel="stylesheet" href="/frontend/css/modals.css">
+    <link rel="icon" type="image/png" href="/Images/favicon_utexchange.png">
     <style>
         body { font-family: 'Poppins', sans-serif; }
         .pill { display:inline-flex;align-items:center;padding:3px 9px;border-radius:20px;font-size:10px;font-weight:700;white-space:nowrap; }

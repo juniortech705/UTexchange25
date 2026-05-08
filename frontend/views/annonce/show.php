@@ -9,6 +9,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="/frontend/css/style.css">
     <link rel="stylesheet" href="/frontend/css/modals.css">
+    <link rel="icon" type="image/png" href="/Images/favicon_utexchange.png">
     <style>
         body { font-family: 'Poppins', sans-serif; }
         .gallery-main { border-radius: 14px; overflow: hidden; height: 400px; background: #f4f6f8; position: relative; }
