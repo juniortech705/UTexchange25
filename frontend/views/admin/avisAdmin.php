@@ -19,6 +19,13 @@
 <?php include __DIR__ . '/../partials/flash.php'; ?>
 <?php include __DIR__ . '/../partials/modals.php'; ?>
 
+<div style="display:flex;align-items:center;gap:6px;font-size:12px;color:#9ca3af;margin-bottom:20px;">
+    <a href="/dashboard" style="color:inherit;text-decoration:none;"
+       onmouseover="this.style.color='#0056b3'" onmouseout="this.style.color='#9ca3af'">Admin</a>
+    <i class="fa-solid fa-chevron-right" style="font-size:8px;"></i>
+    <span style="color:#374151;font-weight:500;">Avis</span>
+</div>
+
 <!-- Modale consulter avis -->
 <div class="modal-overlay" id="modalViewAvis">
     <div class="modal-box" style="max-width:460px;">

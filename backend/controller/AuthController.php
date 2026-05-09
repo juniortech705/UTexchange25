@@ -11,12 +11,12 @@ class AuthController extends BaseController{
             Session::flash('error', 'Veuillez remplir tous les champs.');
             $this->redirect('/login');
         }
- /*
+
         if (!self::isAllowedEmailDomain($email)) {
             Session::flash('error', 'Seuls les emails universitaires UT sont autorisés.');
             $this->redirect('/login');
         }
-*/
+
         $user= UserService::login($email, $password);
         if(!$user){
             Session::flash('error', 'Identifiant ou mot de passe incorrect.');
@@ -86,7 +86,8 @@ class AuthController extends BaseController{
             'utbm.fr',
             'utt.fr',
             'utc.fr',
-            'uttop.fr'
+            'uttop.fr',
+            'utexchange.fr'
         ];
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             return false;

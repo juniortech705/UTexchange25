@@ -235,7 +235,42 @@
          "Il te suffit de cliquer sur Mon compte "
       ]
     },
+    {
+      "tag":"modfier_annonce",
+      "patterns": [
+        "comment modifier une annonce?",
+        "modifier une annonce",
+        "où modifier les annonces ?",
+        "je veux modifier les annonces ?",
+        "page des modifications de annonces ?",
+        "modification poser des annonces ?"
+      ],
+      "responses": [
+        "Pour modifier une annonce, veuillez cliquer sur ce lien et ensuite tu cliques sur ton annonce : <a href='/myAnnonces' class='chat-link'>Mes annonces</a>"
 
+      ]
+    },
+    {
+      "tag":"voir_annonce",
+      "patterns": [
+        "comment voir mes une annonce?",
+        "comment voir mes une annonce?",
+        "revoir mon annonce",
+        "revoir mes annonce",
+        "voir mes annonces",
+        "voir les annonces",
+        "où modifier les annonces ?",
+        "où modifier mes annonces ?",
+        "je veux voir mes annonces ?",
+        "page pour voir mes annonces ?",
+        "page pour voir mon annonces ?",
+        "voir  des annonces ?"
+      ],
+      "responses": [
+        "Pour revoir vos annonces, veuillez cliquer sur ce lien : <a href='/myAnnonces' class='chat-link'>Voir mes annonces</a>"
+
+      ]
+    },
     {
       "tag": "Michele",
       "patterns":[
@@ -248,14 +283,22 @@
     },
 
     {
-     "tag": "equipe",
-     "patterns":[
-      "qui ont developpé ce site", "qui sont les developpeurs de ce site?","qui a eu cette idée?", 
-      "qui sont les propriétaire de ce projet ", "qui on developpé utexchange ?", "qui sont les membre de ce projet", "quels sont les membre du groupe"
-     ],
-     "responses":[
-      "Les membres de ce groupe sont :\n -Junior Angambun,\n -Andy Daryl DEDZO TSAPI,\n -Michele ANDE TCHINDA,\n -Jordan SODJINOU"
-     ]
+
+      "tag": "equipe",
+
+      "patterns":[
+
+        "qui ont developpé ce site", "qui sont les developpeurs de ce site?","qui a eu cette idée?",
+
+        "qui sont les propriétaire de ce projet ", "qui on developpé utexchange ?", "qui sont les membre de ce projet", "quels sont les membre du groupe"
+
+      ],
+
+      "responses":[
+
+        "Les membres de ce groupe sont :\n<a href='https://www.linkedin.com/in/junior-angambun-019b312a1/' class='chat-link'> -Junior Angambun </a>,\n<a href='https://www.linkedin.com/in/daryl-dedzo-a8a051304/' class='chat-link'> -Andy Daryl DEDZO TSAPI</a>,\n -<a href='https://www.linkedin.com/in/michele-ande-tchinda-07bb72385/' class='chat-link'> Michele ANDE TCHINDA</a>,\n -Jordan SODJINOU"
+
+      ]
 
     },
 
@@ -265,9 +308,10 @@
         "qui est ton créateur?", "qui t'a codé", "qui t'a créé", "et c'est qui ton créateur?", "c'est qui?"
       ],
       "responses":[
-        "Mon créateur s'appelle Junior ", "C'est Junior, un Quantum Machine learning Enginneer"
+        "Mon créateur s'appelle Junior, pour en savoir plus sur lui clique ici :<a href='https://www.linkedin.com/in/junior-angambun-019b312a1/' class='chat-link'>Junior A</a> ", "C'est Junior, un Quantum Machine learning Enginneer"
       ]
     },
+
 
     {
       "tag": "categories",
@@ -278,20 +322,20 @@
         "catégorie"
       ],
       "responses" :[
-        "Les catégories sont visibles sur la page d'accueil, mais je peux énumérer quelques unes :\n -\n -Troc\n -Opportunités\n -Services\n -Autres"
+        "Les catégories sont visibles sur la page d'accueil, mais je peux énumérer quelques unes :\nHigh Tech -\n -Don\n -Emploi\n -Services\n -Autres"
        ]
     },
     {
       "tag":"utbm",
       "patterns":[
-            "utbm", "UTBM", "parles moi de l'école", "parles du campus", "c'est quoi l'UTBM", "université de technologie de Belfort-Montbéliard", 
-            "Université de Technologie de Belfort-Montbéliard","Université de technologie de Belfort-Montbéliard",
-            "université de technologie de belfort-montbéliard","université de technologie de belfort-montbeliard",
-            "université de technologie de belfort montbeliard","université de technologie de Belfort Montbéliard",
-            "Université de Technologie de Belfort Montbéliard","universite de technologie de Belfort-Montbeliard",
-            "université de technologie de Belfort-Montbéliard","c'est quoi l'université de technologie de Belfort-Montbéliard ?"
+        "utbm", "UTBM", "parles moi de l'école", "parles du campus", "c'est quoi l'UTBM", "université de technologie de Belfort-Montbéliard",
+        "Université de Technologie de Belfort-Montbéliard","Université de technologie de Belfort-Montbéliard",
+        "université de technologie de belfort-montbéliard","université de technologie de belfort-montbeliard",
+        "université de technologie de belfort montbeliard","université de technologie de Belfort Montbéliard",
+        "Université de Technologie de Belfort Montbéliard","universite de technologie de Belfort-Montbeliard",
+        "université de technologie de Belfort-Montbéliard","c'est quoi l'université de technologie de Belfort-Montbéliard ?"
       ],
-      "responses": ["L'UTBM est une école d'ingénieur du groupe des UT constituée de trois campus:\n-Sevenans: Pour le TC et mécanique, \n-Belfort: Pour l'informatique et l'énergie, \n-Montbéliard: Pour l'ergonomie et le design"]
+      "responses": ["L'UTBM est une école d'ingénieur <a href='https://www.groupe-ut.fr/' class='chat-link'>du groupe des UT</a> constituée de trois campus:\n-Sevenan: Pour le TC et mécanique, \n-Belfort: Pour l'informatique et l'énergie, \n-Montbéliard: Pour l'ergonomie et le design"]
     }
   ]
 }

@@ -1,0 +1,83 @@
+body { font-family: 'Poppins', sans-serif; }
+.profile-cover {
+    height: 140px;
+    background: linear-gradient(135deg, #0056b3 0%, #004a99 60%, #003d80 100%);
+    border-radius: 16px 16px 0 0;
+    position: relative;
+}
+.profile-card {
+    background: #fff;
+    border: 1px solid #f0f0f0;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,.04);
+    margin-bottom: 24px;
+}
+.profile-avatar {
+    width: 80px; height: 80px; border-radius: 50%;
+    background: linear-gradient(135deg, #0056b3, #004a99);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.8rem; font-weight: 700; color: white;
+    border: 4px solid white;
+    position: absolute; bottom: -40px; left: 28px;
+    box-shadow: 0 4px 16px rgba(0,86,179,.3);
+}
+.profile-body { padding: 52px 28px 24px; }
+.profile-name { font-size: 1.3rem; font-weight: 700; color: #111; margin-bottom: 4px; }
+.profile-meta {
+    font-size: 12px; color: #9ca3af;
+    display: flex; flex-wrap: wrap; gap: 12px; margin-top: 6px;
+}
+.profile-meta span { display: flex; align-items: center; gap: 4px; }
+.profile-meta i { font-size: 10px; }
+.stat-box {
+    background: #f8faff; border-radius: 12px; padding: 14px 20px;
+    text-align: center; flex: 1;
+}
+.stat-box__val { font-size: 1.5rem; font-weight: 900; color: #0056b3; font-family: 'Poppins', sans-serif; }
+.stat-box__val--gold { color: #f59e0b; }
+.stat-box__label { font-size: 11px; color: #9ca3af; margin-top: 2px; }
+.profile-listing {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 0; border-bottom: 1px solid #f3f4f6;
+    text-decoration: none; color: inherit;
+    transition: background .15s; border-radius: 8px;
+}
+.profile-listing:last-child { border-bottom: none; }
+.profile-listing:hover { background: #f8faff; padding-left: 8px; margin: 0 -8px; }
+.profile-listing__img {
+    width: 60px; height: 60px; border-radius: 9px;
+    background: #f4f6f8; overflow: hidden; flex-shrink: 0;
+}
+.profile-listing__img img { width:100%;height:100%;object-fit:cover; }
+.profile-listing__placeholder {
+    width:100%;height:100%;display:flex;align-items:center;justify-content:center;
+    color:#d1d5db;font-size:1.2rem;
+}
+.profile-listing__title {
+    font-size: 13px; font-weight: 600; color: #111;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    margin-bottom: 3px;
+}
+.profile-listing__price { font-size: 14px; font-weight: 700; color: #0056b3; }
+.profile-listing__price--free { color: #059669; }
+profile-listing__price--troc { color: #4c1d95; }
+.profile-listing__meta { font-size: 11px; color: #9ca3af; margin-top: 2px; }
+.profile-action-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 8px 16px; border-radius: 9px; font-size: 12px; font-weight: 600;
+    text-decoration: none; transition: background .15s, color .15s;
+    border: 1.5px solid;
+}
+
+/* ── Badges statut annonce ── */
+.annonce-status-badge {
+    font-size: 9px; font-weight: 700; padding: 2px 7px;
+    border-radius: 20px; white-space: nowrap; flex-shrink: 0;
+    text-transform: uppercase; letter-spacing: .04em;
+}
+.badge-s-active  { background: #dcfce7; color: #16a34a; }
+.badge-s-draft   { background: #f3f4f6; color: #6b7280; }
+.badge-s-vendu   { background: #eff6ff; color: #1d4ed8; }
+.badge-s-expire  { background: #fef9c3; color: #92400e; }
+.badge-s-archive { background: #fee2e2; color: #dc2626; }

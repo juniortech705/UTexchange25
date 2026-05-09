@@ -15,6 +15,16 @@
 <?php include __DIR__ . '/../partials/header.php'; ?>
 <?php include __DIR__ . '/../partials/flash.php'; ?>
 
+<div style="display:flex;align-items:center;gap:6px;font-size:12px;color:#9ca3af;margin-bottom:20px;">
+    <a href="/" style="color:inherit;text-decoration:none;"
+       onmouseover="this.style.color='#0056b3'" onmouseout="this.style.color='#9ca3af'">Accueil</a>
+    <i class="fa-solid fa-chevron-right" style="font-size:8px;"></i>
+    <a href="/users/profil/<?= Session::userId() ?>" style="color:inherit;text-decoration:none;"
+       onmouseover="this.style.color='#0056b3'" onmouseout="this.style.color='#9ca3af'">Profil</a>
+    <i class="fa-solid fa-chevron-right" style="font-size:8px;"></i>
+    <span style="color:#374151;font-weight:500;">Mot de passe</span>
+</div>
+
 <main class="flex-1 flex items-center justify-center px-4 py-12">
     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 w-full max-w-md">
 

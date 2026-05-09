@@ -19,13 +19,23 @@
 <?php include __DIR__ . '/../partials/flash.php'; ?>
 <?php include __DIR__ . '/../partials/modals.php'; ?>
 
+<div style="display:flex;align-items:center;gap:6px;font-size:12px;color:#9ca3af;margin-bottom:20px;">
+    <a href="/" style="color:inherit;text-decoration:none;"
+       onmouseover="this.style.color='#0056b3'" onmouseout="this.style.color='#9ca3af'">Accueil</a>
+    <i class="fa-solid fa-chevron-right" style="font-size:8px;"></i>
+    <a href="/users/profil/<?= Session::userId() ?>" style="color:inherit;text-decoration:none;"
+       onmouseover="this.style.color='#0056b3'" onmouseout="this.style.color='#9ca3af'">Profil</a>
+    <i class="fa-solid fa-chevron-right" style="font-size:8px;"></i>
+    <span style="color:#374151;font-weight:500;">Annonce de <?= htmlspecialchars($name) ?></span>
+</div>
+
 <main class="flex-1" style="max-width:860px;margin:0 auto;width:100%;padding:28px 20px 56px;">
 
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:12px;">
         <div>
             <h1 style="font-size:1.4rem;font-weight:700;color:#111;display:flex;align-items:center;gap:8px;">
                 <i class="fa-solid fa-list" style="color:#0056b3;font-size:1.1rem;"></i>
-                Mes annonces
+                Annonce de <?= htmlspecialchars($name) ?>
             </h1>
             <p style="font-size:13px;color:#9ca3af;margin-top:2px;">
                 <?= count($annonces) ?> annonce<?= count($annonces) > 1 ? 's' : '' ?> publiée<?= count($annonces) > 1 ? 's' : '' ?>
@@ -71,8 +81,13 @@
                     <a href="/annonce/<?= $annonce->getId() ?>" class="my-card__body" style="text-decoration:none;">
                         <div>
                             <p class="my-card__title"><?= htmlspecialchars($annonce->getTitle()) ?></p>
-                            <p class="my-card__price <?= $annonce->getType() === 'don' ? 'my-card__price--free' : '' ?>">
-                                <?= $annonce->getType() === 'don' ? 'Gratuit' : number_format((float)$annonce->getPrice(), 2, ',', ' ') . ' €' ?>
+                            <p class="my-card__price
+                                <?= $annonce->getType() === 'don' ? 'my-card__price--free' : ($annonce->getType() === 'troc' ? 'my-card__price--troc' : '') ?>">
+                                <?php if ($annonce->getType() === 'don'): ?>Gratuit
+                                <?php elseif ($annonce->getType() === 'troc'): ?>Échange
+                                <?php else: ?>
+                                    <?= number_format((float)$annonce->getPrice(), 2, ',', ' ') . ' €' ?>
+                                <?php endif; ?>
                             </p>
                         </div>
                         <div class="my-card__meta">

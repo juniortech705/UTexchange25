@@ -9,112 +9,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="/frontend/css/style.css">
     <link rel="stylesheet" href="/frontend/css/modals.css">
+    <link rel="stylesheet" href="/frontend/css/home.css">
     <link rel="icon" type="image/png" href="/Images/favicon_utexchange.png">
-    <style>
-        .section-scroll {
-            display: flex;
-            gap: 16px;
-            overflow-x: auto;
-            padding-bottom: 8px;
-            scroll-behavior: smooth;
-        }
-        .section-scroll::-webkit-scrollbar { height: 4px; }
-        .section-scroll::-webkit-scrollbar-thumb { background: #e5e7eb; border-radius: 4px; }
-
-        .annonce-card-h {
-            background: #fff;
-            border-radius: 14px;
-            overflow: hidden;
-            border: 1px solid #f0f0f0;
-            cursor: pointer;
-            transition: transform .22s ease, box-shadow .22s ease;
-            flex-shrink: 0;
-            width: 210px;
-            text-decoration: none;
-            color: inherit;
-            display: block;
-        }
-        .annonce-card-h:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 32px rgba(0,0,0,.1);
-        }
-        .annonce-card-h__img {
-            height: 150px;
-            background: #f4f6f8;
-            overflow: hidden;
-            position: relative;
-        }
-        .annonce-card-h__img img {
-            width: 100%; height: 100%; object-fit: cover;
-            transition: transform .3s ease;
-        }
-        .annonce-card-h:hover .annonce-card-h__img img { transform: scale(1.05); }
-        .annonce-card-h__placeholder {
-            width: 100%; height: 100%;
-            display: flex; align-items: center; justify-content: center;
-            color: #d1d5db; font-size: 2rem;
-        }
-        .annonce-card-h__body { padding: 11px 13px 13px; }
-        .annonce-card-h__title {
-            font-size: 13px; font-weight: 600; color: #111;
-            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-            margin-bottom: 3px;
-        }
-        .annonce-card-h__loc {
-            font-size: 11px; color: #9ca3af;
-            display: flex; align-items: center; gap: 3px; margin-bottom: 6px;
-        }
-        .annonce-card-h__price {
-            font-family: 'Poppins', sans-serif;
-            font-size: 15px; font-weight: 700; color: #0056b3;
-        }
-        .annonce-card-h__price--free { color: #059669; }
-        .badge-gratuit {
-            position: absolute; top: 8px; left: 8px;
-            background: #d1fae5; color: #065f46;
-            font-size: 9px; font-weight: 700; padding: 2px 7px;
-            border-radius: 20px; text-transform: uppercase; letter-spacing: .04em;
-        }
-        .section-header {
-            display: flex; align-items: center; justify-content: space-between;
-            margin-bottom: 14px;
-        }
-        .section-header h2 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.1rem; font-weight: 700; color: #111;
-            display: flex; align-items: center; gap: 8px;
-        }
-        .section-header h2 i { color: #0056b3; font-size: 1rem; }
-        .see-more {
-            font-size: 12px; font-weight: 600; color: #0056b3;
-            text-decoration: none; display: flex; align-items: center; gap: 4px;
-            transition: opacity .15s;
-        }
-        .see-more:hover { opacity: .7; }
-        .hero-banner {
-            background: linear-gradient(135deg, #0056b3 0%, #004a99 100%);
-            border-radius: 18px;
-            padding: 36px 40px;
-            margin-bottom: 36px;
-            color: white;
-            position: relative;
-            overflow: hidden;
-        }
-        .hero-banner::before {
-            content: '';
-            position: absolute; top: -40px; right: -40px;
-            width: 220px; height: 220px;
-            background: rgba(255,255,255,.06);
-            border-radius: 50%;
-        }
-        .hero-banner::after {
-            content: '';
-            position: absolute; bottom: -60px; right: 80px;
-            width: 160px; height: 160px;
-            background: rgba(255,255,255,.04);
-            border-radius: 50%;
-        }
-    </style>
 </head>
 <body class="bg-gray-50 min-h-screen flex flex-col">
 
@@ -179,6 +75,8 @@
                                 <?php endif; ?>
                                 <?php if ($annonce->getType() === 'don'): ?>
                                     <span class="badge-gratuit">Gratuit</span>
+                                <?php elseif ($annonce->getType() === 'troc'): ?>
+                                    <span class="badge-troc">Troc</span>
                                 <?php endif; ?>
                             </div>
                             <div class="annonce-card-h__body">
@@ -189,6 +87,8 @@
                                 </p>
                                 <?php if ($annonce->getType() === 'don'): ?>
                                     <p class="annonce-card-h__price annonce-card-h__price--free">Gratuit</p>
+                                <?php elseif ($annonce->getType() === 'troc'): ?>
+                                    <p class="annonce-card-h__price annonce-card-h__price--troc">Troc</p>
                                 <?php else: ?>
                                     <p class="annonce-card-h__price">
                                         <?= number_format((float)$annonce->getPrice(), 2, ',', ' ') ?> €
@@ -199,7 +99,7 @@
                     <?php endforeach; ?>
 
                     <!-- Card "voir plus" -->
-                    <a href="/annonces?categorie_id=<?= $cat['id'] ?>"
+                    <a href="/annonces?cat_id=<?= $cat['id'] ?>"
                        style="width:140px;flex-shrink:0;border-radius:14px;border:2px dashed #e5e7eb;
                           display:flex;flex-direction:column;align-items:center;justify-content:center;
                           gap:8px;color:#9ca3af;text-decoration:none;transition:border-color .15s,color .15s;

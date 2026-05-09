@@ -125,8 +125,9 @@ class AnnonceController extends BaseController {
         $covers=[];
         foreach ($annonces as $annonce) {
             $covers [$annonce->getId()] = PhotoService::getCover($annonce->getId());
+            $name= UserService::getById($annonce->getUtilisateurId())->getNom().' '.UserService::getById(Session::userId())->getPrenom();
         }
-        $this->render('annonce/myannonces', ['annonces' => $annonces, 'covers' => $covers]);
+        $this->render('annonce/myannonces', ['annonces' => $annonces, 'covers' => $covers, 'name' => $name]);
     }
     //deletePhoto (Ajax)
     public function deletePhoto($id) {
@@ -223,7 +224,12 @@ class AnnonceController extends BaseController {
         $userId = Session::userId();
 
         $annonces = FavoriService::getByUser($userId);
-        $this->render('annonce/favoris', ['annonces' => $annonces]);
+        $covers=[];
+        foreach ($annonces as $annonce) {
+            $covers [$annonce->getId()] = PhotoService::getCover($annonce->getId());
+        }
+
+        $this->render('annonce/favoris', ['annonces' => $annonces, 'covers' => $covers]);
     }
 
     //index

@@ -9,120 +9,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="/frontend/css/style.css">
     <link rel="stylesheet" href="/frontend/css/modals.css">
+    <link rel="stylesheet" href="/frontend/css/message.css">
     <link rel="icon" type="image/png" href="/Images/favicon_utexchange.png">
-    <style>
-        body { font-family: 'Poppins', sans-serif; }
-
-        /* Layout chat */
-        .chat-wrap {
-            display: flex; flex-direction: column;
-            height: calc(100vh - 130px);
-            background: #fff;
-            border: 1px solid #f0f0f0;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 2px 12px rgba(0,0,0,.04);
-        }
-
-        /* Header conversation */
-        .chat-header {
-            padding: 14px 18px;
-            border-bottom: 1px solid #f3f4f6;
-            display: flex; align-items: center; gap: 12px;
-            flex-shrink: 0;
-        }
-        .chat-header__avatar {
-            width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0;
-            background: linear-gradient(135deg, #0056b3, #004a99);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 14px; font-weight: 700; color: white;
-        }
-        .chat-header__name { font-size: 14px; font-weight: 700; color: #111; }
-        .chat-header__sub  { font-size: 11px; color: #9ca3af; }
-
-        /* Feed messages */
-        #messages-feed {
-            flex: 1; overflow-y: auto;
-            padding: 20px 18px; display: flex;
-            flex-direction: column; gap: 10px;
-        }
-        #messages-feed::-webkit-scrollbar { width: 4px; }
-        #messages-feed::-webkit-scrollbar-thumb { background: #e5e7eb; border-radius: 4px; }
-
-        /* Bulles */
-        .msg-bubble { display: flex; }
-        .msg-mine   { justify-content: flex-end; }
-        .msg-theirs { justify-content: flex-start; }
-
-        .msg-inner {
-            max-width: 68%; display: flex;
-            flex-direction: column; position: relative;
-        }
-        .msg-mine .msg-inner { align-items: flex-end; }
-        .msg-theirs .msg-inner { align-items: flex-start; }
-
-        .msg-text {
-            padding: 10px 14px; border-radius: 14px;
-            font-size: 13.5px; line-height: 1.55; word-break: break-word;
-        }
-        .msg-mine .msg-text {
-            background: #0056b3; color: white;
-            border-bottom-right-radius: 4px;
-        }
-        .msg-theirs .msg-text {
-            background: #f3f4f6; color: #111;
-            border-bottom-left-radius: 4px;
-        }
-
-        .msg-time { font-size: 10px; color: #9ca3af; margin-top: 3px; padding: 0 2px; }
-
-        /* Actions sur message (visible au hover) */
-        .msg-actions {
-            display: none; gap: 4px; margin-bottom: 4px;
-        }
-        .msg-bubble:hover .msg-actions { display: flex; }
-        .msg-actions button {
-            width: 24px; height: 24px; border-radius: 6px; border: none;
-            background: #f3f4f6; color: #9ca3af; cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
-            transition: background .15s, color .15s;
-        }
-        .msg-actions button:hover { background: #e5e7eb; color: #374151; }
-
-        /* Zone de saisie */
-        .chat-input-bar {
-            border-top: 1px solid #f3f4f6;
-            padding: 12px 16px;
-            display: flex; align-items: flex-end; gap: 10px;
-            flex-shrink: 0;
-        }
-        #message-input {
-            flex: 1; resize: none; border: 1.5px solid #e5e7eb;
-            border-radius: 12px; padding: 10px 14px;
-            font-size: 13.5px; font-family: 'Poppins', sans-serif;
-            outline: none; max-height: 120px; min-height: 42px;
-            transition: border-color .2s;
-            line-height: 1.5;
-        }
-        #message-input:focus { border-color: #0056b3; }
-
-        #send-btn {
-            width: 42px; height: 42px; border-radius: 12px; flex-shrink: 0;
-            background: #0056b3; color: white; border: none;
-            cursor: pointer; display: flex; align-items: center; justify-content: center;
-            transition: background .15s, transform .1s;
-        }
-        #send-btn:hover { background: #004a99; }
-        #send-btn:active { transform: scale(.95); }
-        #send-btn:disabled { background: #9ca3af; cursor: not-allowed; }
-
-        /* Bandeau conversation terminée */
-        .terminated-banner {
-            background: #fef9c3; border-top: 1px solid #fde68a;
-            padding: 10px 18px; font-size: 12px; color: #92400e;
-            text-align: center; flex-shrink: 0;
-        }
-    </style>
 </head>
 <body class="bg-gray-50 min-h-screen flex flex-col">
 
@@ -381,7 +269,7 @@
     window.CONV_ID     = <?= $conversation->getId() ?>;
     window.USER_ID     = <?= $userId ?>;
     window.LAST_MSG_ID = <?= $lastMessageId ?>;
-    window.IS_TERMINATED = <?= $isTerminee ? 'true' : 'false' ?>;
+    window.IS_TERMINATED = <?= json_encode($isTerminee) ?>;
 
     // ── Notation étoiles ─────────────────────────────────
     let currentNote = 0;

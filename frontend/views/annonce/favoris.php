@@ -16,6 +16,13 @@
 <?php include __DIR__ . '/../partials/flash.php'; ?>
 <?php include __DIR__ . '/../partials/modals.php'; ?>
 
+<div style="display:flex;align-items:center;gap:6px;font-size:12px;color:#9ca3af;margin-bottom:18px;">
+    <a href="/" style="color:inherit;text-decoration:none;"
+       onmouseover="this.style.color='#0056b3'" onmouseout="this.style.color='#9ca3af'">Accueil</a>
+    <i class="fa-solid fa-chevron-right" style="font-size:8px;"></i>
+    <span style="color:#374151;font-weight:500;">Favoris</span>
+</div>
+
 <main class="flex-1" style="max-width:1200px;margin:0 auto;width:100%;padding:30px 20px;">
 
     <div class="flex items-center justify-between mb-8">
@@ -34,8 +41,8 @@
                     <div class="annonce-image" style="position:relative;">
                         <?php $cover = $covers[$annonce->getId()] ?? null; ?>
                         <?php if ($cover): ?>
-                            <img src="/uploads/annonces/<?= $annonce->getId() ?>/<?= basename($cover->getCheminFichier()) ?>"
-                                 alt="<?= htmlspecialchars($annonce->getTitle()) ?>">
+                            <img src="/annonce/photo/<?= $annonce->getId() ?>/<?= urlencode($cover->getNomFichier()) ?>"
+                                 alt="<?= htmlspecialchars($annonce->getTitle()) ?>" loading="lazy">
                         <?php else: ?>
                             <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#f3f4f6;">
                                 <i class="fa-regular fa-image" style="font-size:2.5rem;color:#d1d5db;"></i>

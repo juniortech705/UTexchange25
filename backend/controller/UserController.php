@@ -18,7 +18,7 @@ class UserController extends BaseController{
             'email' => $this->input('email'),
             'password' => $this->input('password'),
             'role_id' => $this->input('role_id'),
-            'campuq' => $this->input('campus'),
+            'campus' => $this->input('ville'),
         ];
 
         $result = UserService::add($data);
@@ -37,9 +37,7 @@ class UserController extends BaseController{
         $roles=RoleService::getAll();
         $this->render('users/edit', ['user' => $user, 'roles' => $roles]);
     }
-    public function edit(){
-        $id = Session::userId();
-
+    public function edit($id){
         $data = [
             'nom' => $this->input('nom'),
             'prenom' => $this->input('prenom'),
@@ -52,7 +50,7 @@ class UserController extends BaseController{
         if ($result) {
             Session::flash('success', 'Utilisateur modifié');
 
-            if(Session::userRole() == 'administrateur'){
+            if(Session::userRole() == 'Administrateur'){
                 $this->redirect('/users');
             } else {
                 $this->redirect('/users/profil/' . $id);
@@ -87,7 +85,11 @@ class UserController extends BaseController{
     //all
     public function index(){
         $users=UserService::getAll();
-        $roles=RoleService::getAll();
+        $role=RoleService::getAll();
+        $roles=[];
+        foreach ($role as $r) {
+            $roles[$r->getId()] = $r->getNom();
+        }
         $this->render('users/index', ['users' => $users, 'roles' => $roles]);
 
     }
@@ -121,7 +123,7 @@ class UserController extends BaseController{
 
         if ($result === true) {
             Session::flash('success', 'Mot de passe modifié');
-            if(Session::userRole() == 'administrateur'){
+            if(Session::userRole() == 'Administrateur'){
                 $this->redirect('/users');
             } else {
                 $this->redirect('/users/profil/' . $id);

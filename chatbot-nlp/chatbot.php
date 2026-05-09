@@ -1,6 +1,12 @@
-<?php
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/chatbot-nlp/chatbot.css">
+</head>
 
-?>
+<body>
 <div id="chat-widget-button" onclick="toggleChat()" style="position: fixed; bottom: 20px; right: 20px; width: 55px; height: 55px; background-color: #0066CC; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 12px rgba(0,102,204,0.3); z-index: 1000;">
     <svg width="26" height="26" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
         <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
@@ -97,3 +103,6 @@
         }
     }
 </script>
+
+</body>
+</html>

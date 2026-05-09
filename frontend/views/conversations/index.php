@@ -9,58 +9,21 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="/frontend/css/style.css">
     <link rel="stylesheet" href="/frontend/css/modals.css">
+    <link rel="stylesheet" href="/frontend/css/conversation.css">
     <link rel="icon" type="image/png" href="/Images/favicon_utexchange.png">
-    <style>
-        body { font-family: 'Poppins', sans-serif; }
-
-        .conv-item {
-            display: flex; align-items: center; gap: 14px;
-            padding: 14px 16px; border-radius: 12px;
-            text-decoration: none; color: inherit;
-            transition: background .15s;
-            border-bottom: 1px solid #f3f4f6;
-        }
-        .conv-item:last-child { border-bottom: none; }
-        .conv-item:hover  { background: #f8faff; }
-        .conv-item.unread { background: #f0f6ff; }
-
-        .conv-avatar {
-            width: 46px; height: 46px; border-radius: 50%; flex-shrink: 0;
-            background: linear-gradient(135deg, #0056b3, #004a99);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 15px; font-weight: 700; color: white;
-        }
-
-        .conv-title { font-size: 14px; font-weight: 600; color: #111; }
-        .conv-last  {
-            font-size: 12px; color: #9ca3af;
-            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-            max-width: 280px;
-        }
-        .conv-last.unread-text { color: #374151; font-weight: 600; }
-        .conv-time { font-size: 11px; color: #9ca3af; flex-shrink: 0; }
-
-        .conv-badge {
-            min-width: 18px; height: 18px; border-radius: 20px;
-            background: #0056b3; color: white;
-            font-size: 10px; font-weight: 700;
-            display: flex; align-items: center; justify-content: center;
-            padding: 0 5px; flex-shrink: 0;
-        }
-
-        .status-dot {
-            width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0;
-            margin-top: 2px;
-        }
-        .status-dot--active   { background: #16a34a; }
-        .status-dot--terminee { background: #9ca3af; }
-    </style>
 </head>
 <body class="bg-gray-50 min-h-screen flex flex-col">
 
 <?php include __DIR__ . '/../partials/header.php'; ?>
 <?php include __DIR__ . '/../partials/flash.php'; ?>
 <?php include __DIR__ . '/../partials/modals.php'; ?>
+
+<div style="display:flex;align-items:center;gap:6px;font-size:12px;color:#9ca3af;margin-bottom:20px;">
+    <a href="/" style="color:inherit;text-decoration:none;"
+       onmouseover="this.style.color='#0056b3'" onmouseout="this.style.color='#9ca3af'">Accueil</a>
+    <i class="fa-solid fa-chevron-right" style="font-size:8px;"></i>
+    <span style="color:#374151;font-weight:500;">Conversations</span>
+</div>
 
 <main class="flex-1" style="max-width:680px;margin:0 auto;width:100%;padding:28px 20px 56px;">
 

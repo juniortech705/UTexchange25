@@ -14,6 +14,24 @@
 
 <?php include __DIR__ . '/../partials/header.php'; ?>
 <?php include __DIR__ . '/../partials/flash.php'; ?>
+<?php if (Session::userRole() == 'Administrateur') : ?>
+<div style="display:flex;align-items:center;gap:6px;font-size:12px;color:#9ca3af;margin-bottom:20px;">
+    <a href="/dashboard" style="color:inherit;text-decoration:none;"
+       onmouseover="this.style.color='#0056b3'" onmouseout="this.style.color='#9ca3af'">Admin</a>
+    <i class="fa-solid fa-chevron-right" style="font-size:8px;"></i>
+    <a href="/users" style="color:inherit;text-decoration:none;"
+       onmouseover="this.style.color='#0056b3'" onmouseout="this.style.color='#9ca3af'">Utilisateurs</a>
+    <i class="fa-solid fa-chevron-right" style="font-size:8px;"></i>
+    <span style="color:#374151;font-weight:500;">Modifier</span>
+</div>
+<?php else: ?>
+<div style="display:flex;align-items:center;gap:6px;font-size:12px;color:#9ca3af;margin-bottom:20px;">
+    <a href="/users/profil/<?= $user->getId() ?>" style="color:inherit;text-decoration:none;"
+       onmouseover="this.style.color='#0056b3'" onmouseout="this.style.color='#9ca3af'">Profil</a>
+    <i class="fa-solid fa-chevron-right" style="font-size:8px;"></i>
+    <span style="color:#374151;font-weight:500;">Modifier</span>
+</div>
+<?php endif; ?>
 
 <main class="flex-1 flex items-center justify-center px-4 py-12">
     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 w-full max-w-lg">
@@ -24,12 +42,12 @@
                 <?= strtoupper(mb_substr($user->getPrenom(),0,1) . mb_substr($user->getNom(),0,1)) ?>
             </div>
             <div>
-                <h1 class="text-xl font-bold text-gray-800" style="font-family:'Poppins',sans-serif;">Modifier mon profil</h1>
+                <h1 class="text-xl font-bold text-gray-800" style="font-family:'Poppins',sans-serif;">Modifier</h1>
                 <p class="text-sm text-gray-400">Mettez à jour vos informations</p>
             </div>
         </div>
 
-        <form method="POST" action="/users/edit">
+        <form method="POST" action="/users/edit/<?= $user->getId() ?>">
             <input type="hidden" name="_csrf_token" value="<?= Session::csrfToken() ?>">
             <input type="hidden" name="id" value="<?= $user->getId() ?>">
 

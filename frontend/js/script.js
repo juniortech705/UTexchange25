@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initPasswordStrength('new-pwd', 'new-pwd-bar');
     initPasswordMatch('new-pwd', 'new-pwd-confirm', 'new-pwd-match', 'pass-submit');
 
-    // ── Badge messages non lus ──────────────────────────────
+    // Badge messages non lus
 
     const badge = document.getElementById('unread-badge');
     if (badge) {
@@ -106,20 +106,21 @@ document.addEventListener('DOMContentLoaded', () => {
             fetch('/messages/unread-count')
                 .then(r => r.json())
                 .then(data => {
-                    if (data.count > 0) {
-                        badge.textContent = data.count > 99 ? '99+' : data.count;
-                        badge.classList.remove('hidden');
+                    const count = parseInt(data.count) || 0;
+                    if (count > 0) {
+                        badge.textContent = count > 99 ? '99+' : count;
+                        badge.style.display = 'flex';
                     } else {
-                        badge.classList.add('hidden');
+                        badge.style.display = 'none';
                     }
                 })
                 .catch(() => {});
         };
         fetchUnread();
-        setInterval(fetchUnread, 30000); // toutes les 30s
+        setInterval(fetchUnread, 30000);
     }
 
-    // ── Navigation logo ─────────────────────────────────────
+    //  Navigation logo
 
     const logo = document.querySelector('.logo-text');
     if (logo) {
@@ -127,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
         logo.addEventListener('click', () => window.location.href = '/');
     }
 
-    // ── Effet fond souris ────────────────────────────────────
+    //  Effet fond souris
 
     document.addEventListener('mousemove', e => {
         const x = (e.clientX * -0.004);

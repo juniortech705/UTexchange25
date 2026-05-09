@@ -18,6 +18,16 @@
 <?php include __DIR__ . '/../partials/flash.php'; ?>
 <?php include __DIR__ . '/../partials/modals.php'; ?>
 
+<div style="display:flex;align-items:center;gap:6px;font-size:12px;color:#9ca3af;margin-bottom:20px;">
+    <a href="/dashboard" style="color:inherit;text-decoration:none;"
+       onmouseover="this.style.color='#0056b3'" onmouseout="this.style.color='#9ca3af'">Admin</a>
+    <i class="fa-solid fa-chevron-right" style="font-size:8px;"></i>
+    <a href="/categories" style="color:inherit;text-decoration:none;"
+       onmouseover="this.style.color='#0056b3'" onmouseout="this.style.color='#9ca3af'">Catégories</a>
+    <i class="fa-solid fa-chevron-right" style="font-size:8px;"></i>
+    <span style="color:#374151;font-weight:500;">Ajouter</span>
+</div>
+
 <main class="flex-1 max-w-lg mx-auto w-full px-4 py-10">
     <div style="background:#fff;border:1px solid #f0f0f0;border-radius:16px;padding:28px;box-shadow:0 2px 12px rgba(0,0,0,.04);">
         <div style="margin-bottom:24px;">

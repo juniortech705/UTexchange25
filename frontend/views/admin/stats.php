@@ -19,6 +19,13 @@
 <?php include __DIR__ . '/../partials/flash.php'; ?>
 <?php include __DIR__ . '/../partials/modals.php'; ?>
 
+<div style="display:flex;align-items:center;gap:6px;font-size:12px;color:#9ca3af;margin-bottom:20px;">
+    <a href="/dashboard" style="color:inherit;text-decoration:none;"
+       onmouseover="this.style.color='#0056b3'" onmouseout="this.style.color='#9ca3af'">Admin</a>
+    <i class="fa-solid fa-chevron-right" style="font-size:8px;"></i>
+    <span style="color:#374151;font-weight:500;">Statistiques</span>
+</div>
+
 <main class="flex-1" style="max-width:1280px;margin:0 auto;width:100%;padding:28px 20px 56px;">
 
     <!-- Page header -->
@@ -98,7 +105,7 @@
 
     </div>
 
-    <!-- ── Ligne 2 : Graphiques principaux ── -->
+    <!-- Ligne 2 : Graphiques principaux -->
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;">
 
         <!-- Répartition des annonces par type — Donut -->
@@ -123,7 +130,7 @@
 
     </div>
 
-    <!-- ── Ligne 3 : Top catégories + Top vendeurs ── -->
+    <!-- Ligne 3 : Top catégories + Top vendeurs  -->
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;">
 
         <!-- Top catégories — Bar -->
@@ -176,7 +183,7 @@
 
     </div>
 
-    <!-- ── Ligne 4 : Avis stats + Dernières annonces ── -->
+    <!--  Ligne 4 : Avis stats + Dernières annonces -->
     <div style="display:grid;grid-template-columns:360px 1fr;gap:16px;">
 
         <!-- Avis actifs/signalés — Gauge visuel -->
@@ -256,7 +263,7 @@
 <?php include __DIR__ . '/../partials/footer.php'; ?>
 <script src="/frontend/js/script.js"></script>
 <script>
-    // ── Données PHP → JS ──────────────────────────────────────
+    //  Données PHP → JS
     const annonceStats = {
         dons: <?= (int)($annonceStats['dons']    ?? 0) ?>,
         trocs:  <?= (int)($annonceStats['trocs']   ?? 0) ?>,
@@ -279,11 +286,11 @@
         signales: <?= (int)($avisStats['signales'] ?? 0) ?>,
     };
 
-    // ── Palette ───────────────────────────────────────────────
+    //  Palette
     const BLUE    = '#0056b3';
     const PALETTE = ['#0056b3','#16a34a','#f59e0b','#7c3aed','#059669','#dc2626'];
 
-    // ── 1. Donut — Répartition par type ──────────────────────
+    // 1. Donut — Répartition par type
     new Chart(document.getElementById('chartType'), {
         type: 'doughnut',
         data: {
@@ -308,7 +315,7 @@
         }
     });
 
-    // ── 2. Bar horizontal — Statuts ───────────────────────────
+    //  2. Bar horizontal — Statuts
     new Chart(document.getElementById('chartStatus'), {
         type: 'bar',
         data: {
@@ -331,7 +338,7 @@
         }
     });
 
-    // ── 3. Bar — Top catégories ───────────────────────────────
+    //  3. Bar — Top catégories
     new Chart(document.getElementById('chartCategories'), {
         type: 'bar',
         data: {
@@ -353,7 +360,7 @@
         }
     });
 
-    // ── 4. Donut — Santé des avis ─────────────────────────────
+    //  4. Donut — Santé des avis
     new Chart(document.getElementById('chartAvis'), {
         type: 'doughnut',
         data: {

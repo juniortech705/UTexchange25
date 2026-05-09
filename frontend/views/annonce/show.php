@@ -9,6 +9,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="/frontend/css/style.css">
     <link rel="stylesheet" href="/frontend/css/modals.css">
+    <link rel="stylesheet" href="/frontend/css/showannonce.css">
     <link rel="icon" type="image/png" href="/Images/favicon_utexchange.png">
     
 </head>
@@ -29,7 +30,7 @@
         <div class="modal-box" style="max-width:380px;">
             <button class="modal-close" onclick="closeModal('modalType')">&times;</button>
             <p class="modal-title" style="font-size:1.1rem;">Changer le type</p>
-            <form method="POST" action="/annonces/type/<?= $annonce->getId() ?>">
+            <form method="POST" action="/annonce/type/<?= $annonce->getId() ?>">
                 <input type="hidden" name="_csrf_token" value="<?= Session::csrfToken() ?>">
                 <div class="modal-field">
                     <label>Type d'annonce</label>
@@ -47,12 +48,12 @@
         <div class="modal-box" style="max-width:380px;">
             <button class="modal-close" onclick="closeModal('modalStatus')">&times;</button>
             <p class="modal-title" style="font-size:1.1rem;">Changer le statut</p>
-            <form method="POST" action="/annonces/status/<?= $annonce->getId() ?>">
+            <form method="POST" action="/annonce/status/<?= $annonce->getId() ?>">
                 <input type="hidden" name="_csrf_token" value="<?= Session::csrfToken() ?>">
                 <div class="modal-field">
                     <label>Statut de l'annonce</label>
                     <select name="status">
-                        <?php foreach (['draft' => 'Brouillon', 'active' => 'Active', 'vendu' => 'Vendu', 'archive' => 'Archivée'] as $v => $l): ?>
+                        <?php foreach (['draft' => 'Brouillon', 'active' => 'Active', 'vendu' => 'Vendu'] as $v => $l): ?>
                             <option value="<?= $v ?>" <?= $annonce->getStatus() === $v ? 'selected' : '' ?>><?= $l ?></option>
                         <?php endforeach; ?>
                     </select>
@@ -71,16 +72,17 @@
         <i class="fa-solid fa-chevron-right" style="font-size:8px;"></i>
         <a href="/annonces" style="color:inherit;text-decoration:none;" onmouseover="this.style.color='#0056b3'" onmouseout="this.style.color='#9ca3af'">Annonces</a>
         <i class="fa-solid fa-chevron-right" style="font-size:8px;"></i>
+        <a href="/myAnnonces" style="color:inherit;text-decoration:none;" onmouseover="this.style.color='#0056b3'" onmouseout="this.style.color='#9ca3af'">Annonces de <?= $seller->getNom().' '.$seller->getPrenom() ?></a>
+        <i class="fa-solid fa-chevron-right" style="font-size:8px;"></i>
         <span style="color:#374151;max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">
             <?= htmlspecialchars($annonce->getTitle()) ?>
         </span>
     </nav>
-
-    <!-- ── Bandeau vendu (si applicable) ── AJOUT -->
+    <!--Bandeau vendu (si applicable)  -->
     <?php if ($readOnly): ?>
         <div class="sold-banner">
             <i class="fa-solid fa-circle-check"></i>
-            Cette annonce est marquée comme <strong>Vendu</strong> — elle est en lecture seule.
+            Cette annonce est marquée comme <strong>Vendu</strong> ou <strong>Signalée par le modérateur</strong>— elle est en lecture seule.
         </div>
     <?php endif; ?>
 
@@ -150,8 +152,14 @@
                         <?php endif; ?>
                     </div>
                 </div>
-                <p class="price-big <?= $annonce->getType() === 'don' ? 'price-big--free' : '' ?>" style="margin-bottom:14px;">
-                    <?= $annonce->getType() === 'don' ? 'Gratuit' : number_format((float)$annonce->getPrice(), 2, ',', ' ') . ' €' ?>
+                <p class="price-big
+                    <?= $annonce->getType() === 'don' ? 'price-big--free' : ($annonce->getType() === 'troc' ? 'price-big--troc' : '') ?>"
+                   style="margin-bottom:4px;">
+                    <?php if ($annonce->getType() === 'don'): ?>Gratuit
+                    <?php elseif ($annonce->getType() === 'troc'): ?>Échange
+                    <?php else: ?>
+                        <?= number_format((float)$annonce->getPrice(), 2, ',', ' ') . ' €' ?>
+                    <?php endif; ?>
                 </p>
                 <div class="info-row"><i class="fa-solid fa-location-dot"></i> Localisation <strong><?= htmlspecialchars($annonce->getLocation()) ?></strong></div>
                 <div class="info-row"><i class="fa-regular fa-calendar"></i> Publiée le <strong><?= date('d/m/Y', strtotime($annonce->getCreatedAt())) ?></strong></div>
@@ -172,8 +180,14 @@
 
             <!-- Prix + actions -->
             <div class="sidebar-box">
-                <p class="price-big <?= $annonce->getType() === 'don' ? 'price-big--free' : '' ?>" style="margin-bottom:4px;">
-                    <?= $annonce->getType() === 'don' ? 'Gratuit' : number_format((float)$annonce->getPrice(), 2, ',', ' ') . ' €' ?>
+                <p class="price-big
+                    <?= $annonce->getType() === 'don' ? 'price-big--free' : ($annonce->getType() === 'troc' ? 'price-big--troc' : '') ?>"
+                     style="margin-bottom:4px;">
+                    <?php if ($annonce->getType() === 'don'): ?>Gratuit
+                    <?php elseif ($annonce->getType() === 'troc'): ?>Échange
+                    <?php else: ?>
+                        <?= number_format((float)$annonce->getPrice(), 2, ',', ' ') . ' €' ?>
+                    <?php endif; ?>
                 </p>
                 <p style="font-size:12px;color:#9ca3af;margin-bottom:16px;">
                     <i class="fa-solid fa-location-dot" style="margin-right:3px;"></i>
@@ -209,7 +223,7 @@
                 <?php else: ?>
                     <div class="owner-actions">
                         <?php if ($readOnly): ?>
-                            <!-- ── Owner + vendu : modifier désactivé, peut changer statut ── AJOUT -->
+                            <!-- Owner + vendu : modifier désactivé, peut changer statut  -->
                             <button class="btn-action btn-action--disabled" disabled title="Annonce vendue">
                                 <i class="fa-solid fa-pen-to-square"></i> Modifier l'annonce
                             </button>

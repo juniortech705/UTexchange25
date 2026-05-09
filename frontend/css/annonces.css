@@ -101,6 +101,7 @@
             font-size: 16px; font-weight: 900; color: #0056b3;
         }
         .my-card__price--free { color: #059669; }
+        .my-card__price--troc { color: #4c1d95; }
         .my-card__meta { font-size: 11px; color: #9ca3af; display:flex;gap:10px;flex-wrap:wrap;margin-top:4px; }
         .my-card__meta i { font-size: 10px; }
         .my-card__actions {
@@ -138,7 +139,7 @@
 
         body { font-family: 'Poppins', sans-serif; }
 
-        /* ── Grille responsive ───────────────────────────── */
+        /* Grille responsive */
         .listing-grid {
             display: flex;
             flex-wrap: wrap;
@@ -283,4 +284,3 @@
             background: rgba(255,255,255,.06);
             border-radius: 50%;
         }
-    

@@ -16,6 +16,12 @@
 <?php include __DIR__ . '/../partials/header.php'; ?>
 <?php include __DIR__ . '/../partials/flash.php'; ?>
 
+<div style="display:flex;align-items:center;gap:6px;font-size:12px;color:#9ca3af;margin-bottom:18px;">
+    <a href="/dashboard" style="color:inherit;text-decoration:none;"
+       onmouseover="this.style.color='#0056b3'" onmouseout="this.style.color='#9ca3af'">Admin</a>
+    <i class="fa-solid fa-chevron-right" style="font-size:8px;"></i>
+    <span style="color:#374151;font-weight:500;">Utilisateurs</span>
+</div>
 
 <main class="max-w-6xl mx-auto px-4 py-10">
 
@@ -72,7 +78,7 @@
                     <td class="px-5 py-4">
                         <span class="px-2 py-1 rounded-full text-xs font-semibold"
                               style="background:#eff6ff;color:#1d4ed8;">
-                            <?= htmlspecialchars('' ?? 'utilisateur') ?>
+                            <?= htmlspecialchars($roles[$u->getRoleId()] ?? 'utilisateur') ?>
                         </span>
                     </td>
                     <td class="px-5 py-4">

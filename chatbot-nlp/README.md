@@ -9,6 +9,7 @@ Interface de traitement du langage naturel utilisant PyTorch et Flask.
 ## Environnement
 ```bash 
 #Preciser la version de Python (ex: python3.8) si nécessaire
+cd chatbot-nlp
 python -m venv venv
 source venv/bin/activate  # Sur Windows : .\venv\Scripts\activate.ps1
 
@@ -17,6 +18,7 @@ source venv/bin/activate  # Sur Windows : .\venv\Scripts\activate.ps1
 ```bash
 pip install -r requirements.txt
 python -c "import nltk; nltk.download('punkt_tab'); nltk.download('punkt'); nltk.download('stopwords')" #si nécessaire pour les ressources NLTK
+python train.py # Entraîne le modèle et génère chatbot_model.pth
 ```
 `.env` : Créer un fichier `.env` pour les variables d'environnement dans le dossier `chatbot-nlp` avec pour contenu `.env.example` adapté à votre environnement.
 ## Test

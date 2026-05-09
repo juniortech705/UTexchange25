@@ -95,7 +95,7 @@ const MessagesUI = (() => {
 
         div.id        = `msg-${msg.id}`;
         div.className = `msg-bubble ${isMine ? 'msg-mine' : 'msg-theirs'}`;
-        div.dataset.original = msg.contenu;
+        div.dataset.original = decodeHtml(msg.contenu);
         div.innerHTML = buildBubble(msg, isMine);
 
         feed().appendChild(div);
@@ -103,7 +103,7 @@ const MessagesUI = (() => {
 
     function buildBubble(msg, isMine) {
         const time    = formatTime(msg.created_at);
-        const actions = isMine ? `
+        const actions = (isMine && !window.IS_TERMINATED) ? `
             <div class="msg-actions">
                 <button onclick="MessagesUI.startEdit(${msg.id})" title="Modifier">
                     <i class="fa-solid fa-pen" style="font-size:10px;"></i>
@@ -117,7 +117,7 @@ const MessagesUI = (() => {
             <div class="msg-inner">
                 ${actions}
                 <div class="msg-text" id="msg-text-${msg.id}">
-                    ${escapeHtml(msg.contenu)}
+                    ${decodeHtml(msg.contenu)}
                 </div>
                 <div class="msg-meta">
                     <span class="msg-time">${time}</span>
@@ -214,13 +214,9 @@ const MessagesUI = (() => {
         MessagesService.delete(msgId)
             .then(data => {
                 if (!data.success) return;
-
                 const el = document.getElementById(`msg-${msgId}`);
-
                 if (el) el.remove();
-
                 recalculateLastId();
-
                 // force sync pour autre user
                 syncMessages();
             });
@@ -301,7 +297,6 @@ const MessagesUI = (() => {
 
                     const textEl = el.querySelector('.msg-text');
                     if (!textEl) {
-                        // 🔥 réparation DOM cassé
                         el.innerHTML = buildBubble(msg, msg.expediteur_id == window.USER_ID);
                         el.dataset.original = msg.contenu;
                         return;
@@ -338,6 +333,12 @@ const MessagesUI = (() => {
          `;
 
         header.appendChild(banner);
+    }
+
+    function decodeHtml(html) {
+        const txt = document.createElement('textarea');
+        txt.innerHTML = html;
+        return txt.value;
     }
 
     //API publique (appelée depuis les boutons inline)

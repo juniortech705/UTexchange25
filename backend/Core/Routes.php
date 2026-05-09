@@ -23,7 +23,7 @@ $router->get('/users', 'UserController@index', ['auth', 'admin']);
 $router->get('/users/add', 'UserController@addForm', ['auth', 'admin']);
 $router->post('/users/add', 'UserController@add', ['auth', 'csrf', 'admin']);
 $router->get('/users/edit/{id}', 'UserController@editForm', ['auth']);
-$router->post('/users/edit', 'UserController@edit', ['auth', 'csrf']);
+$router->post('/users/edit/{id}', 'UserController@edit', ['auth', 'csrf']);
 $router->post('/users/delete/{id}', 'UserController@delete', ['auth', 'admin']);
 $router->post('/users/activate/{id}', 'UserController@activate', ['auth', 'admin']);
 $router->post('/users/deactivate/{id}', 'UserController@deactivate', ['auth', 'admin']);
