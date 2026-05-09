@@ -56,7 +56,7 @@
             'draft'   => ['label' => 'Brouillon', 'class' => 's-draft'],
             'vendu'   => ['label' => 'Vendu',     'class' => 's-vendu'],
             'expire'  => ['label' => 'Expirée',   'class' => 's-expire'],
-            'archive' => ['label' => 'Archivée',  'class' => 's-archive'],
+            'signale' => ['label' => 'Signalée',  'class' => 's-archive'],
     ];
     ?>
 
